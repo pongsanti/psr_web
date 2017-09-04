@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 // css
-import './assets/global/plugins/font-awesome/css/font-awesome.css';
-import './assets/global/plugins/simple-line-icons/simple-line-icons.css';
-import './assets/global/plugins/bootstrap/css/bootstrap.css';
-import './assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css';
+import '../assets/global/plugins/font-awesome/css/font-awesome.css';
+import '../assets/global/plugins/simple-line-icons/simple-line-icons.css';
+import '../assets/global/plugins/bootstrap/css/bootstrap.css';
+import '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css';
 
-import './assets/global/css/components.css';
-import './assets/global/css/plugins.css';
+import '../assets/global/css/components.css';
+import '../assets/global/css/plugins.css';
 
-import './assets/layouts/layout/css/layout.css';
-import './assets/layouts/layout/css/themes/darkblue.css';
-import './assets/layouts/layout/css/custom.css';
+import '../assets/layouts/layout/css/layout.css';
+import '../assets/layouts/layout/css/themes/darkblue.css';
+import '../assets/layouts/layout/css/custom.css';
 
-import LOGO_IMG from './assets/layouts/layout/img/logo.png';
+import LOGO_IMG from '../assets/layouts/layout/img/logo.png';
 
 import PageHeaderInner from './page_header_inner'
 import PageSidebar from './page_sidebar'

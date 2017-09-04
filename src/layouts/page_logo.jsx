@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LOGO_IMG from './assets/layouts/layout/img/logo.png';
+import LOGO_IMG from '../assets/layouts/layout/img/logo.png';
 
 class PageLogo extends Component {
   render () {
