@@ -7,4 +7,4 @@ const component = () => {
 }
 document.body.appendChild(component());
 
-Renderer.renderLogin();
+new Renderer().renderLogin();
