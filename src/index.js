@@ -7,4 +7,5 @@ const component = () => {
 }
 document.body.appendChild(component());
 
-new Renderer().renderLogin();
+global.st_renderer = new Renderer();
+global.st_renderer.renderLogin();
