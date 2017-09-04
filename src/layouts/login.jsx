@@ -15,6 +15,8 @@ import '../assets/pages/css/login.css';
 
 import 'sweetalert/dist/sweetalert.css';
 
+import LOGO_IMG from '../assets/images/logo.png';
+
 const mapStateToProps = state => {
   const {login} = state;
   return {
@@ -65,7 +67,7 @@ class Login extends Component {
     return (
       <div>
         <div className='logo'>
-
+          <img src={LOGO_IMG} />
         </div>
         <div className='content'>
           <form className='login-form'>
@@ -95,7 +97,7 @@ class Login extends Component {
             </div>
             <SweetAlert
               show={this.state.showError}
-              title='Error'
+              title='Sorry - Something went wrong.'
               type='error'
               text={this.props.error}
               onConfirm={() => this.setState({ showError: false })}
@@ -125,7 +127,7 @@ class Login extends Component {
             </div> */}
           </form>          
         </div>
-        <div className='copyright'> 2017 © Metronic. Admin Dashboard Template. </div>
+        <div className='copyright'> 2017 © Hatyai Pongsiri Forwarding Co.,LTD. </div>
       </div>
     )
   }

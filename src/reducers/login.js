@@ -24,7 +24,7 @@ const reducer = handleActions({
   [ActionTypes.login_fail]: (state, action) => ({
     ...state,
     isFetching: false,
-    error: action.payload
+    error: String(action.payload)
   })
 }, defaultState);
 
