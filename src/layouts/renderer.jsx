@@ -5,35 +5,43 @@ import SmartTrack from './smart_track';
 import Login from './login';
 
 class Renderer {
+  rootNode () {
+    return document.getElementById('root');
+  }
+
+  documentBody () {
+    return document.body
+  }
+
   unmount () {
-    ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+    ReactDOM.unmountComponentAtNode(this.rootNode());
   }
 
   renderIndex () {
     this.unmount();
 
-    document.body.className = '';
-    document.body.classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
+    this.documentBody().className = '';
+    this.documentBody().classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
     ReactDOM.render(
       <BrowserRouter>
         <SmartTrack />
       </BrowserRouter>
       ,
-      document.getElementById('root')
-    )
+      this.rootNode()
+    );
   }
 
   renderLogin () {
     this.unmount();
     
-    document.body.className = 'login';
+    this.documentBody().className = 'login';
     ReactDOM.render(
       <BrowserRouter>
         <Login />
       </BrowserRouter>
       ,
-      document.getElementById('root')
-    )
+      this.rootNode()
+    );
   }
 }
 
