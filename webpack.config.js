@@ -3,12 +3,16 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Webpack = require('webpack');
 
 module.exports = {
   entry: {
     app: './src/index.js'
   },
   devtool: 'cheap-eval-source-map',
+  devServer: {
+    hot: true
+  },
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -57,7 +61,8 @@ module.exports = {
           }
         },
       ],
-    })
+    }),
+    new Webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx']
