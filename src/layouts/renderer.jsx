@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
 import { BrowserRouter } from 'react-router-dom';
 import SmartTrack from './smart_track';
 import Login from './login';
+// store
+import configureStore from '../store/configureStore'
+
+const store = configureStore()
 
 class Renderer {
   rootNode () {
@@ -23,9 +29,11 @@ class Renderer {
     this.documentBody().className = '';
     this.documentBody().classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
     ReactDOM.render(
-      <BrowserRouter>
-        <SmartTrack />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <SmartTrack />
+        </BrowserRouter>
+      </Provider>
       ,
       this.rootNode()
     );
@@ -36,9 +44,11 @@ class Renderer {
     
     this.documentBody().className = 'login';
     ReactDOM.render(
-      <BrowserRouter>
-        <Login />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>
+      </Provider>
       ,
       this.rootNode()
     );
