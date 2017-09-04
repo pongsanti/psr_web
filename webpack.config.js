@@ -3,6 +3,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Webpack = require('webpack');
 
 module.exports = {
@@ -62,6 +63,7 @@ module.exports = {
         },
       ],
     }),
+    new UglifyJSPlugin(),
     new Webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
