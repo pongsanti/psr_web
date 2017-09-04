@@ -3,16 +3,10 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const Webpack = require('webpack');
 
 module.exports = {
   entry: {
     app: './src/index.js'
-  },
-  devtool: 'cheap-eval-source-map',
-  devServer: {
-    hot: true
   },
   output: {
     filename: '[name].[hash].bundle.js',
@@ -62,9 +56,7 @@ module.exports = {
           }
         },
       ],
-    }),
-    new UglifyJSPlugin(),
-    new Webpack.HotModuleReplacementPlugin()
+    })
   ],
   resolve: {
     extensions: ['.js', '.jsx']
