@@ -12,8 +12,6 @@ import '../assets/layouts/layout/css/layout.css';
 import '../assets/layouts/layout/css/themes/darkblue.css';
 import '../assets/layouts/layout/css/custom.css';
 
-import LOGO_IMG from '../assets/layouts/layout/img/logo.png';
-
 import PageHeaderInner from './page_header_inner'
 import PageSidebar from './page_sidebar'
 
@@ -36,7 +34,7 @@ class SmartTrack extends Component {
               </h1>
               <div className='note note-info'>
                 <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
-              </div>                            
+              </div>
             </div>
           </div>
         </div>
