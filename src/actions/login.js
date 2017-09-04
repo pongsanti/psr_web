@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
 
-export const login_post = createAction('LOGIN_POST', loginData => loginData);
-export const login_recv = createAction('LOGIN_RECV', json => json);
-export const login_fail = createAction('LOGIN_FAIL', json => json);
+export const login_post = createAction('LOGIN_POST');
+export const login_recv = createAction('LOGIN_RECV');
+export const login_fail = createAction('LOGIN_FAIL');
 
 export const loginPost = (loginData) => {
   return (dispatch) => {
@@ -18,18 +18,26 @@ export const loginPost = (loginData) => {
 
     return fetch('http://localhost:4567/psr/login')
       .then(
-        response => response.json(),
+        response => response.json()
+        ,
         // Do not use catch, because that will also catch
         // any errors in the dispatch and resulting render,
         // causing an loop of 'Unexpected batch number' errors.
         // https://github.com/facebook/react/issues/6895
-        error => console.log('An error occured.', error)
+        error => {
+          console.log('An error occured.', error);
+          return dispatch(login_fail(error));
+        }
       )
-      .then(json =>
+      .then(json => {
         // We can dispatch many times!
         // Here, we update the app state with the results of the API call.
-
-        dispatch(login_recv(json))
-      )
+        if (!isErrorObj(json)) {    
+          return dispatch(login_recv(json));
+        }
+         
+      })
   }
 }
+
+const isErrorObj = obj => obj.hasOwnProperty('error');

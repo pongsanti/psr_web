@@ -16,8 +16,11 @@ import '../assets/pages/css/login.css';
 import 'sweetalert/dist/sweetalert.css';
 
 const mapStateToProps = state => {
+  const {login} = state;
   return {
-    email: state.login.email
+    isFetching: login.isFetching,
+    email: login.email,
+    error: login.error
   }
 }
 
@@ -27,14 +30,15 @@ class Login extends Component {
     this.state = {
       email: props.email,
       password: '',
-      show: false
+      showError: false
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.state,
-      email: nextProps.email
+      email: nextProps.email,
+      showError: nextProps.error != null
     })
   }
 
@@ -68,7 +72,7 @@ class Login extends Component {
             <h3 className='form-title font-green'>Sign In</h3>
             <div className='alert alert-danger display-hide'>
               <button className='close' data-close='alert'></button>
-              <span> Enter any username and password. </span>
+              <span> Enter any email and password. </span>
             </div>
             <div className='form-group'>
               <label className='control-label visible-ie8 visible-ie9'>Email</label>
@@ -87,13 +91,15 @@ class Login extends Component {
                     <input type='checkbox' name='remember' value='1' />Remember
                     <span></span>
                 </label>
-                <a href='javascript:;' id='forget-password' className='forget-password' onClick={() => this.setState({show: true})}>Forgot Password?</a>
+                {/* <a href='javascript:;' id='forget-password' className='forget-password'>Forgot Password?</a> */}
             </div>
             <SweetAlert
-              show={this.state.show}
-              title="Demo"
-              text="SweetAlert in React"
-              onConfirm={() => this.setState({ show: false })}
+              show={this.state.showError}
+              title='Error'
+              type='error'
+              text={this.props.error}
+              onConfirm={() => this.setState({ showError: false })}
+              confirmButtonColor='#DD6B55'
             />            
             {/* <div className='login-options'>
               <h4>Or login with</h4>
