@@ -15,9 +15,7 @@ export const loginPost = (loginData) => {
   return (dispatch) => {
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
-    const dispatch_result = dispatch(login_post(loginData))
-    console.log(typeof dispatch_result);
-    console.log(dispatch_result);
+    dispatch(login_post(loginData))
 
     // The function called by the thunk middleware can return a value,
     // that is passed on as the return value of the dispatch method.
@@ -33,13 +31,10 @@ export const loginPost = (loginData) => {
       .then(
         response => {
           const json = response.json();
-          console.log(typeof json);
-          console.log(json);
-          console.log(json.value)
           if(response.ok) {
-            return json
+            return json;
           } else {
-            throw json;
+            return json.then(resolve => Promise.reject(resolve));
           }
         }
         ,
@@ -49,39 +44,19 @@ export const loginPost = (loginData) => {
         // https://github.com/facebook/react/issues/6895
         error => {
           console.log('An error occured.', error);
-          return dispatch(login_fail(error));
+          return Promise.reject(error);
         }
       )
       .then(json => {
-        console.log(json)
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
-        if (!isErrorObj(json)) {    
-          return dispatch(login_recv(json));
-        }       
-      },
-      error => {
-        console.log('error in rejected')
-        console.log(typeof error)
-        console.log(error)
-        //return dispatch(login_fail(error))
-        return error;
-      }
-      
-      ).then(resolve => {
-        console.log('third then')
-        console.log(typeof resolve)
-        console.log(resolve)
-        dispatch(login_fail(resolve));
-      })
-      
-      // .catch(error => {
-      //   console.log('fail in catch')
-      //   console.log(typeof error)
-      //   console.log(error)
-      //   return dispatch(login_fail(error))
-      // })
+          // We can dispatch many times!
+          // Here, we update the app state with the results of the API call.
+          dispatch(login_recv(json));
+          return json;
+        },
+        error => {
+          dispatch(login_fail(error));
+          return error;
+        }
+      )   
   }
 }
-
-const isErrorObj = obj => obj.hasOwnProperty('error');
