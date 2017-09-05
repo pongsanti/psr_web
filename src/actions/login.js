@@ -7,8 +7,9 @@ export const login_fail = createAction('LOGIN_FAIL');
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
-const myInit = { method: 'POST',
-               headers: myHeaders };
+const myInit = {
+  method: 'POST',
+  headers: myHeaders };
 
 export const loginPost = (loginData) => {
   return (dispatch) => {
@@ -22,7 +23,11 @@ export const loginPost = (loginData) => {
     // In this case, we return a promise to wait for.
     // This is not required by thunk middleware, but it is convenient for us.
 
-    return fetch('http://localhost:4567/psr/login', myInit)
+    const fetchInit = {
+      ...myInit,
+      body: JSON.stringify(loginData)
+    }
+    return fetch('http://localhost:4567/psr/login', fetchInit)
       .then(
         response => response.json()
         ,
