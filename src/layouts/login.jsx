@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { loginPost } from '../actions'
 import SweetAlert from 'sweetalert-react';
+import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
+
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
 import '../assets/global/plugins/simple-line-icons/simple-line-icons.css';
 import '../assets/global/plugins/bootstrap/css/bootstrap.css';
 import '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css';
 
+import '../assets/global/plugins/ladda/ladda.min.css';
 import '../assets/global/css/components.css';
 import '../assets/global/css/plugins.css';
 
@@ -68,9 +71,9 @@ class Login extends Component {
       <div>
         <div className='logo'>
           <img src={LOGO_IMG} />
-        </div>
-        <div className='content'>
-          <form className='login-form'>
+        </div>       
+        <div className='content'> 
+          <form className='login-form'>           
             <h3 className='form-title font-green'>Sign In</h3>
             <div className='alert alert-danger display-hide'>
               <button className='close' data-close='alert'></button>
@@ -86,13 +89,17 @@ class Login extends Component {
               <input className='form-control form-control-solid placeholder-no-fix' type='password' autoComplete='off' placeholder='Password' name='password'
                 onChange={this.onPasswordChange.bind(this)}
                 value={this.state.password} /></div>
-            <div className='form-actions'>
-                <button type='button' className='btn green uppercase'
-                  onClick={this.onSubmit.bind(this)}>Login</button>
-                <label className='rememberme check mt-checkbox mt-checkbox-outline'>
+            <div className=''>
+              <LaddaButton className='btn green uppercase'
+                loading={this.props.isFetching}
+                onClick={this.onSubmit.bind(this)}
+                data-style={EXPAND_LEFT}
+                data-spinner-size={30}
+              >Login</LaddaButton>
+                {/* <label className='rememberme check mt-checkbox mt-checkbox-outline'>
                     <input type='checkbox' name='remember' value='1' />Remember
                     <span></span>
-                </label>
+                </label> */}
                 {/* <a href='javascript:;' id='forget-password' className='forget-password'>Forgot Password?</a> */}
             </div>
             <SweetAlert
