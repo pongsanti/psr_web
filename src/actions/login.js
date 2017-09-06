@@ -53,6 +53,8 @@ export const loginPost = (loginData) => {
           // We can dispatch many times!
           // Here, we update the app state with the results of the API call.
           dispatch(login_recv(json));
+          // render index page
+          global.st_renderer.renderIndex();
           return json;
         },
         error => {
