@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import { Alert } from 'react-bootstrap';
+import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
-import { loginPost } from '../actions'
+import { 
+  loginPost,
+  noti_push,
+  noti_clear } from '../actions'
 import SweetAlert from 'sweetalert-react';
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
 import Form from 'react-formal';
@@ -30,22 +34,38 @@ var modelSchema = yup.object({
 });
 
 const mapStateToProps = state => {
-  const {login} = state;
+  const {noti, login} = state;
   return {
     isFetching: login.isFetching,
     email: login.email,
-    error: login.error
+    error: login.error,
+    showNoti: noti.showNoti,
+    notiMessage: noti.message
   }
 }
 
 class Login extends Component {
   constructor (props) {
     super(props)
+
+    // Notification
+    this._notificationSystem = null;
+
     this.state = {
       email: props.email,
       password: '',
       showError: false
     }
+  }
+
+  // Notification system
+  _addNotification (message) {
+    this._notificationSystem.addNotification({
+      message,
+      level: 'error',
+      position: 'tc'
+    });
+    this.props.dispatch(noti_clear());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +74,9 @@ class Login extends Component {
       email: nextProps.email,
       showError: nextProps.error != null
     })
+    if (nextProps.showNoti) {
+      this._addNotification(nextProps.notiMessage)
+    }
   }
 
   onSubmit () {
@@ -82,13 +105,6 @@ class Login extends Component {
         defaultValue={modelSchema.default()}
         onSubmit={this.onSubmit.bind(this)} >
         <div>
-          <Form.Message for={['email', 'password']}>
-            { messages => (
-              <Alert bsStyle='danger'>
-                <span>{messages.join(', ')}</span>
-              </Alert>
-            )}
-          </Form.Message>
           <div className='form-group'>
             <label className='control-label visible-ie8 visible-ie9'>Email</label>
             <Form.Field className='form-control form-control-solid placeholder-no-fix' name='email' placeholder='Email'
@@ -101,6 +117,13 @@ class Login extends Component {
               onChange={this.onPasswordChange.bind(this)}
               value={this.state.password}/>
           </div>
+          <Form.Message for={['email', 'password']}>
+            { messages => (
+              <Alert bsStyle='danger'>
+                <span>{messages.join(', ')}</span>
+              </Alert>
+            )}
+          </Form.Message>          
         </div>
         <Form.Button type='submit' component={LaddaButton}
           className='btn green uppercase'
@@ -113,6 +136,7 @@ class Login extends Component {
   render () {
     return (
       <div>
+        <NotificationSystem ref={(noti) => { this._notificationSystem = noti; }} />
         <div className='logo'>
           <img src={LOGO_IMG} />
         </div>       

@@ -1,4 +1,6 @@
 import { createAction } from 'redux-actions';
+import { noti_push } from './noti'
+import { extract_string } from '../helpers/error';
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
@@ -54,7 +56,9 @@ export const loginPost = (loginData) => {
           return json;
         },
         error => {
-          dispatch(login_fail(error));
+          const err_text = extract_string(error);
+          dispatch(login_fail(err_text));
+          dispatch(noti_push(err_text));
           return error;
         }
       )   
