@@ -29,8 +29,8 @@ import LOGO_IMG from '../assets/images/logo.png';
 
 var defaultStr = yup.string().default('')
 var modelSchema = yup.object({
-  email: defaultStr.required('please enter email').email('email invalid'),
-  password: defaultStr.required('please enter password')
+  email: defaultStr.required('Please enter email').email('Email is invalid'),
+  password: defaultStr.required('Please enter password')
 });
 
 const mapStateToProps = state => {
@@ -61,9 +61,10 @@ class Login extends Component {
   // Notification system
   _addNotification (message) {
     this._notificationSystem.addNotification({
+      title: 'Sorry - Something went wrong.',
       message,
       level: 'error',
-      position: 'tc'
+      position: 'tc',
     });
     this.props.dispatch(noti_clear());
   }
@@ -120,7 +121,9 @@ class Login extends Component {
           <Form.Message for={['email', 'password']}>
             { messages => (
               <Alert bsStyle='danger'>
-                <span>{messages.join(', ')}</span>
+                <ul>
+                  {messages.map(msg => <li key={msg}>{msg}</li>)}
+                </ul>
               </Alert>
             )}
           </Form.Message>          
@@ -141,7 +144,7 @@ class Login extends Component {
           <img src={LOGO_IMG} />
         </div>       
         <div className='content'>
-          <h3 className='form-title font-green'>Sign In</h3>
+          <h3 className='form-title font-green'>Smart Track</h3>
           {this.form()}
           {/* <div className='alert alert-danger display-hide'>
             <button className='close' data-close='alert'></button>
