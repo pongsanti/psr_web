@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { loginPost } from '../actions'
 import SweetAlert from 'sweetalert-react';
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
+import Form from 'react-formal';
+import yup from 'yup';
 
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
@@ -19,6 +21,12 @@ import '../assets/pages/css/login.css';
 import 'sweetalert/dist/sweetalert.css';
 
 import LOGO_IMG from '../assets/images/logo.png';
+
+var defaultStr = yup.string().default('')
+var modelSchema = yup.object({
+  email: defaultStr.required('please enter email').email('email invalid'),
+  password: defaultStr.required('please enter password')
+});
 
 const mapStateToProps = state => {
   const {login} = state;
@@ -54,16 +62,52 @@ class Login extends Component {
     }))
   }
 
-  onEmailChange (event) {
+  onEmailChange (value) {
     this.setState({
-      email: event.target.value
+      email: value
     })
   }
 
-  onPasswordChange (event) {
+  onPasswordChange (value) {
     this.setState({
-      password: event.target.value
+      password: value
     })
+  }
+
+  form () {
+    return (
+      <Form className='login-form'
+        schema={modelSchema}
+        defaultValue={modelSchema.default()}
+        onSubmit={this.onSubmit.bind(this)} >
+        <div>
+          <Form.Message for={['email', 'password']}>
+            { messages => (
+              <div className='alert alert-danger'>
+                <button className='close' data-close='alert'></button>
+                <span>{messages.join(', ')}</span>
+              </div>
+            )}
+          </Form.Message>
+          <div className='form-group'>
+            <label className='control-label visible-ie8 visible-ie9'>Email</label>
+            <Form.Field className='form-control form-control-solid placeholder-no-fix' name='email' placeholder='Email'
+              onChange={this.onEmailChange.bind(this)}
+              value={this.state.email}/>
+          </div>
+          <div className='form-group'>
+            <label className='control-label visible-ie8 visible-ie9'>Password</label>
+            <Form.Field className='form-control form-control-solid placeholder-no-fix' type='password' name='password' placeholder='Password'
+              onChange={this.onPasswordChange.bind(this)}
+              value={this.state.password}/>
+          </div>
+        </div>
+        <Form.Button type='submit' component={LaddaButton}
+          className='btn green uppercase'
+          loading={this.props.isFetching}
+          data-style={EXPAND_LEFT}
+          data-spinner-size={30}>Login</Form.Button>
+    </Form>)
   }
 
   render () {
@@ -72,67 +116,40 @@ class Login extends Component {
         <div className='logo'>
           <img src={LOGO_IMG} />
         </div>       
-        <div className='content'> 
-          <form className='login-form'>           
-            <h3 className='form-title font-green'>Sign In</h3>
-            <div className='alert alert-danger display-hide'>
-              <button className='close' data-close='alert'></button>
-              <span> Enter any email and password. </span>
-            </div>
-            <div className='form-group'>
-              <label className='control-label visible-ie8 visible-ie9'>Email</label>
-              <input className='form-control form-control-solid placeholder-no-fix' type='text' autoComplete='off' placeholder='Email' name='email'
-                onChange={this.onEmailChange.bind(this)}
-                value={this.state.email} /></div>
-            <div className='form-group'>
-              <label className='control-label visible-ie8 visible-ie9'>Password</label>
-              <input className='form-control form-control-solid placeholder-no-fix' type='password' autoComplete='off' placeholder='Password' name='password'
-                onChange={this.onPasswordChange.bind(this)}
-                value={this.state.password} /></div>
-            <div className=''>
-              <LaddaButton className='btn green uppercase'
-                loading={this.props.isFetching}
-                onClick={this.onSubmit.bind(this)}
-                data-style={EXPAND_LEFT}
-                data-spinner-size={30}
-              >Login</LaddaButton>
-                {/* <label className='rememberme check mt-checkbox mt-checkbox-outline'>
-                    <input type='checkbox' name='remember' value='1' />Remember
-                    <span></span>
-                </label> */}
-                {/* <a href='javascript:;' id='forget-password' className='forget-password'>Forgot Password?</a> */}
-            </div>
-            <SweetAlert
-              show={this.state.showError}
-              title='Sorry - Something went wrong.'
-              type='error'
-              text={this.props.error}
-              onConfirm={() => this.setState({ showError: false })}
-              confirmButtonColor='#DD6B55'
-            />            
-            {/* <div className='login-options'>
-              <h4>Or login with</h4>
-              <ul className='social-icons'>
-                <li>
-                <a className='social-icon-color facebook' data-original-title='facebook' href='javascript:;'></a>
-                </li>
-                <li>
-                  <a className='social-icon-color twitter' data-original-title='Twitter' href='javascript:;'></a>
-                </li>
-                <li>
-                  <a className='social-icon-color googleplus' data-original-title='Goole Plus' href='javascript:;'></a>
-                </li>
-                <li>
-                  <a className='social-icon-color linkedin' data-original-title='Linkedin' href='javascript:;'></a>
-                </li>
-              </ul>
-            </div> */}
-            {/* <div className='create-account'>
-              <p>
-                  <a href='javascript:;' id='register-btn' className='uppercase'>Create an account</a>
-              </p>
-            </div> */}
-          </form>          
+        <div className='content'>
+          <h3 className='form-title font-green'>Sign In</h3>
+          {this.form()}
+          {/* <div className='alert alert-danger display-hide'>
+            <button className='close' data-close='alert'></button>
+            <span> Enter any email and password. </span>
+          </div> */}
+            {/* <label className='rememberme check mt-checkbox mt-checkbox-outline'>
+                <input type='checkbox' name='remember' value='1' />Remember
+                <span></span>
+            </label> */}
+            {/* <a href='javascript:;' id='forget-password' className='forget-password'>Forgot Password?</a> */}
+          {/* <div className='login-options'>
+            <h4>Or login with</h4>
+            <ul className='social-icons'>
+              <li>
+              <a className='social-icon-color facebook' data-original-title='facebook' href='javascript:;'></a>
+              </li>
+              <li>
+                <a className='social-icon-color twitter' data-original-title='Twitter' href='javascript:;'></a>
+              </li>
+              <li>
+                <a className='social-icon-color googleplus' data-original-title='Goole Plus' href='javascript:;'></a>
+              </li>
+              <li>
+                <a className='social-icon-color linkedin' data-original-title='Linkedin' href='javascript:;'></a>
+              </li>
+            </ul>
+          </div> */}
+          {/* <div className='create-account'>
+            <p>
+                <a href='javascript:;' id='register-btn' className='uppercase'>Create an account</a>
+            </p>
+          </div> */}
         </div>
         <div className='copyright'> 2017 © Hatyai Pongsiri Forwarding Co.,LTD. </div>
       </div>

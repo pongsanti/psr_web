@@ -35,12 +35,14 @@
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-formal": "^0.25.4",
     "react-ladda": "^5.0.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-thunk": "^2.2.0",
-    "sweetalert-react": "^0.4.10"
+    "sweetalert-react": "^0.4.10",
+    "yup": "^0.22.0"
   }
 }
