@@ -34,6 +34,7 @@
     "es6-promise": "^4.1.1",
     "isomorphic-fetch": "^2.2.1",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-formal": "^0.25.4",
     "react-ladda": "^5.0.7",

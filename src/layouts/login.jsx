@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { loginPost } from '../actions'
 import SweetAlert from 'sweetalert-react';
@@ -83,10 +84,9 @@ class Login extends Component {
         <div>
           <Form.Message for={['email', 'password']}>
             { messages => (
-              <div className='alert alert-danger'>
-                <button className='close' data-close='alert'></button>
+              <Alert bsStyle='danger'>
                 <span>{messages.join(', ')}</span>
-              </div>
+              </Alert>
             )}
           </Form.Message>
           <div className='form-group'>
