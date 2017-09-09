@@ -64,7 +64,7 @@ export const loginPost = (loginData) => {
         error => {
           const err_text = extract_string(error);
           dispatch(login_fail(err_text));
-          dispatch(noti_push(err_text));
+          dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
           return error;
         }
       )   
@@ -85,7 +85,7 @@ export const logoutDelete = () => {
       headers: myHeaders,
       method: 'DELETE'
     }
-    console.log('before fetch');
+
     return fetch(`${config.URL}/api/sessions`, fetchInit)
     .then(response => {
       const json = response.json();
@@ -105,7 +105,7 @@ export const logoutDelete = () => {
       return json;
     }, error => {
       const err_text = extract_string(error);
-      dispatch(noti_push(err_text));
+      dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
       return error;
     });
     console.log('after fetch')

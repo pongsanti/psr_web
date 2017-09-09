@@ -26,7 +26,7 @@ const mapStateToProps = state => {
   const {noti} = state;
   return {
     showNoti: noti.showNoti,
-    notiMessage: noti.message
+    notiObj: noti.notiObj
   }
 }
 
@@ -38,11 +38,11 @@ class SmartTrack extends Component {
   }
 
   // Notification system
-  _addNotification (message) {
+  _addNotification (notiObj) {
     this._notificationSystem.addNotification({
-      title: 'Sorry - Something went wrong.',
-      message,
-      level: 'error',
+      title: notiObj.title,
+      message: notiObj.message,
+      level: notiObj.level,
       position: 'tc',
     });
     this.props.dispatch(noti_clear());
@@ -50,7 +50,7 @@ class SmartTrack extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.showNoti) {
-      this._addNotification(nextProps.notiMessage)
+      this._addNotification(nextProps.notiObj)
     }
   }  
 

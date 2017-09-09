@@ -3,14 +3,14 @@ import * as ActionTypes from '../actions'
 
 const defaultState = {
   showNoti: false,
-  message: ''
+  notiObj: ''
 }
 
 const reducer = handleActions({
   [ActionTypes.noti_push]: (state, action) => ({
     ...state,
     showNoti: true,
-    message: action.payload
+    notiObj: action.payload
   }),
   [ActionTypes.noti_clear]: (state, action) => ({
     ...defaultState
