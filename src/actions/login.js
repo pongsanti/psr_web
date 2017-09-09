@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { noti_push } from './noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
-import { fetchHeader, fetchOption} from './helper';
+import { fetchHeader, fetchOption, postOption} from './helper';
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
@@ -37,9 +37,7 @@ export const loginPost = (loginData) => {
     // In this case, we return a promise to wait for.
     // This is not required by thunk middleware, but it is convenient for us.
 
-    const fetchOpt = fetchOption(fetchHeader(), 'POST')
-    fetchOpt.body = JSON.stringify(loginData)
-    
+    const fetchOpt = postOption(fetchHeader(), JSON.stringify(loginData));
     return fetch(`${config.URL}/login`, fetchOpt)
       .then(fetchResponseResolve
         ,
