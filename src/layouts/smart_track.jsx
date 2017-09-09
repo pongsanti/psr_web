@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import NotificationSystem from 'react-notification-system';
+import {
+  noti_clear } from '../actions'
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
 import '../assets/global/plugins/simple-line-icons/simple-line-icons.css';
@@ -18,10 +22,42 @@ import PageBar from './page_bar'
 
 import UserList from '../components/users/user_list';
 
+const mapStateToProps = state => {
+  const {noti} = state;
+  return {
+    showNoti: noti.showNoti,
+    notiMessage: noti.message
+  }
+}
+
 class SmartTrack extends Component {
+  constructor (props) {
+    super(props);
+    // Notification
+    this._notificationSystem = null;
+  }
+
+  // Notification system
+  _addNotification (message) {
+    this._notificationSystem.addNotification({
+      title: 'Sorry - Something went wrong.',
+      message,
+      level: 'error',
+      position: 'tc',
+    });
+    this.props.dispatch(noti_clear());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.showNoti) {
+      this._addNotification(nextProps.notiMessage)
+    }
+  }  
+
   render () {
     return (
       <div className='page-wrapper'>
+        <NotificationSystem ref={(noti) => { this._notificationSystem = noti; }} />
         <div className='page-header navbar navbar-fixed-top'>
           <PageHeaderInner />
         </div>
@@ -52,4 +88,4 @@ class SmartTrack extends Component {
   }
 }
 
-export default SmartTrack;
+export default connect(mapStateToProps)(SmartTrack);
