@@ -25,7 +25,8 @@ class PageHeaderInner extends Component {
   }
 
   render () {
-    //const {displayName} = this.props.user
+    const displayName = this.props.user.display_name;
+    const {email} = this.props.user;
 
     return (
       <div className='page-header-inner'>
@@ -36,7 +37,7 @@ class PageHeaderInner extends Component {
         <div className='top-menu'>
           <Nav pullRight navbar className='pull-right'>
             <NavDropdown eventKey={3}
-              title={<span className='username username-hide-on-mobile'>Nick <i className="fa fa-angle-down"></i></span>}
+              title={<span className='username username-hide-on-mobile'>{displayName} ({email})<i className="fa fa-angle-down"></i></span>}
               id='user-dropdown'
               className='dropdown-user'
               noCaret>
