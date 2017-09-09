@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
-import {
-  noti_clear } from '../actions'
+import addNoti from './noti'
+
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
 import '../assets/global/plugins/simple-line-icons/simple-line-icons.css';
@@ -33,19 +33,11 @@ const mapStateToProps = state => {
 class SmartTrack extends Component {
   constructor (props) {
     super(props);
-    // Notification
-    this._notificationSystem = null;
   }
 
   // Notification system
   _addNotification (notiObj) {
-    this._notificationSystem.addNotification({
-      title: notiObj.title,
-      message: notiObj.message,
-      level: notiObj.level,
-      position: 'tc',
-    });
-    this.props.dispatch(noti_clear());
+    addNoti(this, notiObj);
   }
 
   componentWillReceiveProps(nextProps) {

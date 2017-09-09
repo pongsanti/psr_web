@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import { Alert } from 'react-bootstrap';
 import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
-import { 
-  loginPost,
-  noti_push,
-  noti_clear } from '../actions'
-import SweetAlert from 'sweetalert-react';
+import { loginPost } from '../actions'
+import addNoti from './noti'
+
+// import SweetAlert from 'sweetalert-react';
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
 import Form from 'react-formal';
 import yup from 'yup';
@@ -50,8 +49,6 @@ class Login extends Component {
 
     const {user} = props
     // Notification
-    this._notificationSystem = null;
-
     this.state = {
       showError: false,
       user: {
@@ -62,13 +59,7 @@ class Login extends Component {
 
   // Notification system
   _addNotification (notiObj) {
-    this._notificationSystem.addNotification({
-      title: notiObj.title,
-      message: notiObj.message,
-      level: notiObj.level,
-      position: 'tc',
-    });
-    this.props.dispatch(noti_clear());
+    addNoti(this, notiObj);
   }
 
   componentWillReceiveProps(nextProps) {
