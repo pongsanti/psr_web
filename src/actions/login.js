@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import { noti_push } from './noti'
 import { extract_string } from '../helpers/error';
+import config from '../config'
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
@@ -29,7 +30,7 @@ export const loginPost = (loginData) => {
       ...myInit,
       body: JSON.stringify(loginData)
     }
-    return fetch('http://localhost:4567/psr/login', fetchInit)
+    return fetch(`${config.URL}/login`, fetchInit)
       .then(
         response => {
           const json = response.json();
