@@ -14,6 +14,7 @@ import '../assets/layouts/layout/css/custom.css';
 
 import PageHeaderInner from './page_header_inner'
 import PageSidebar from './page_sidebar'
+import PageBar from './page_bar'
 
 class SmartTrack extends Component {
   render () {
@@ -29,6 +30,7 @@ class SmartTrack extends Component {
           </div>
           <div className='page-content-wrapper'>
             <div className='page-content'>
+              <PageBar />
               <h1 className='page-title'> Blank Page Layout
                 <small> blank page layout</small>
               </h1>
