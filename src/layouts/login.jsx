@@ -37,7 +37,7 @@ const mapStateToProps = state => {
   const {noti, login} = state;
   return {
     isFetching: login.isFetching,
-    email: login.email,
+    user: login.user,
     error: login.error,
     showNoti: noti.showNoti,
     notiMessage: noti.message
@@ -48,13 +48,15 @@ class Login extends Component {
   constructor (props) {
     super(props)
 
+    const {user} = props
     // Notification
     this._notificationSystem = null;
 
     this.state = {
-      email: props.email,
-      password: '',
-      showError: false
+      showError: false,
+      user: {
+        email: user.email 
+      }
     }
   }
 
@@ -72,7 +74,6 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       ...this.state,
-      email: nextProps.email,
       showError: nextProps.error != null
     })
     if (nextProps.showNoti) {
@@ -82,20 +83,14 @@ class Login extends Component {
 
   onSubmit () {
     this.props.dispatch(loginPost({
-      email: this.state.email,
-      password: this.state.password
+      email: this.state.user.email,
+      password: this.state.user.password
     }))
   }
 
-  onEmailChange (value) {
+  onFormChange (value) {
     this.setState({
-      email: value
-    })
-  }
-
-  onPasswordChange (value) {
-    this.setState({
-      password: value
+      user: value
     })
   }
 
@@ -104,19 +99,19 @@ class Login extends Component {
       <Form className='login-form'
         schema={modelSchema}
         defaultValue={modelSchema.default()}
+        value={this.state.user}
+        onChange={this.onFormChange.bind(this)}
         onSubmit={this.onSubmit.bind(this)} >
         <div>
           <div className='form-group'>
             <label className='control-label visible-ie8 visible-ie9'>Email</label>
-            <Form.Field className='form-control form-control-solid placeholder-no-fix' name='email' placeholder='Email'
-              onChange={this.onEmailChange.bind(this)}
-              value={this.state.email}/>
+            <Form.Field className='form-control form-control-solid placeholder-no-fix'
+              name='email' placeholder='Email' />
           </div>
           <div className='form-group'>
             <label className='control-label visible-ie8 visible-ie9'>Password</label>
-            <Form.Field className='form-control form-control-solid placeholder-no-fix' type='password' name='password' placeholder='Password'
-              onChange={this.onPasswordChange.bind(this)}
-              value={this.state.password}/>
+            <Form.Field className='form-control form-control-solid placeholder-no-fix'
+              type='password' name='password' placeholder='Password' />
           </div>
           <Form.Message for={['email', 'password']}>
             { messages => (

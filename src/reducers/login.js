@@ -3,9 +3,10 @@ import * as ActionTypes from '../actions'
 
 const defaultState = {
   isFetching: false,
-  email: '',
   token: null,
-  user: null,
+  user: {
+    email: ''
+  },
   error: null
 }
 
@@ -13,7 +14,6 @@ const reducer = handleActions({
   [ActionTypes.login_post]: (state, action) => ({
     ...state,
     isFetching: true,
-    email: action.payload.email || '',
     error: null
   }),
   [ActionTypes.login_recv]: (state, action) => ({
@@ -33,7 +33,10 @@ const reducer = handleActions({
     isFetching: true
   }),
   [ActionTypes.logout_recv]: (state, action) => ({
-    ...defaultState
+    ...defaultState,
+    user: {
+      email: state.user.email
+    },
   })   
 }, defaultState);
 
