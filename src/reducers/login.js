@@ -5,6 +5,7 @@ const defaultState = {
   isFetching: false,
   email: '',
   token: null,
+  user: null,
   error: null
 }
 
@@ -19,13 +20,21 @@ const reducer = handleActions({
     ...state,
     isFetching: false,
     token: action.payload.token,
+    user: action.payload.user,
     error: null
   }),
   [ActionTypes.login_fail]: (state, action) => ({
     ...state,
     isFetching: false,
     error: action.payload
-  })
+  }),
+  [ActionTypes.logout_delete]: (state, action) => ({
+    ...state,
+    isFetching: true
+  }),
+  [ActionTypes.logout_recv]: (state, action) => ({
+    ...defaultState
+  })   
 }, defaultState);
 
 export default reducer;

@@ -7,6 +7,9 @@ export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
 export const login_fail = createAction('LOGIN_FAIL');
 
+export const logout_delete = createAction('LOGOUT_DELETE');
+export const logout_recv = createAction('LOGOUT_RECV');
+
 const myHeaders = new Headers();
 myHeaders.append('Content-Type', 'application/json');
 
@@ -65,5 +68,46 @@ export const loginPost = (loginData) => {
           return error;
         }
       )   
+  }
+}
+
+export const logoutDelete = () => {
+  return (dispatch, getState) => {
+    const {login} = getState();
+
+    dispatch(logout_delete());
+
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('X-Authorization', login.token)
+
+    const fetchInit = {
+      headers: myHeaders,
+      method: 'DELETE'
+    }
+    console.log('before fetch');
+    return fetch(`${config.URL}/api/sessions`, fetchInit)
+    .then(response => {
+      const json = response.json();
+      if(response.ok) {
+        return json;
+      } else {
+        return json.then(resolve => Promise.reject(resolve));
+      }
+    }, error => {
+      console.log('An error occured.', error);
+      return Promise.reject(error);
+    })
+    .then(json => {
+      dispatch(logout_recv(json))
+      // render index page
+      global.st_renderer.renderLogin();
+      return json;
+    }, error => {
+      const err_text = extract_string(error);
+      dispatch(noti_push(err_text));
+      return error;
+    });
+    console.log('after fetch')
   }
 }
