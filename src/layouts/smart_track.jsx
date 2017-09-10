@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
+import { Route, withRouter } from 'react-router-dom'
 import addNoti from './noti'
 
 // css
@@ -21,6 +22,7 @@ import PageSidebar from './page_sidebar'
 import PageBar from './page_bar'
 
 import UserList from '../components/users/user_list';
+import Dashboard from '../components/users/dashboard';
 
 const mapStateToProps = state => {
   const {noti} = state;
@@ -61,7 +63,8 @@ class SmartTrack extends Component {
           <div className='page-content-wrapper'>
             <div className='page-content'>
               <PageBar />
-              <UserList />
+              <Route exact path='/' component={Dashboard} />
+              <Route exact path='/users' component={UserList} />
             </div>
           </div>
         </div>
@@ -80,4 +83,4 @@ class SmartTrack extends Component {
   }
 }
 
-export default connect(mapStateToProps)(SmartTrack);
+export default withRouter(connect(mapStateToProps)(SmartTrack));
