@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import PageLogo from './page_logo'
 
 import {logoutDelete} from '../actions'
@@ -21,7 +22,8 @@ const mapDispatchToProps = dispatch => {
 class PageHeaderInner extends Component {
 
   onLogoutSelect () {
-    this.props.logout();
+    this.props.logout()
+    .then(() => this.props.history.push('/'));
   }
 
   render () {
@@ -69,4 +71,4 @@ class PageHeaderInner extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageHeaderInner);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PageHeaderInner));

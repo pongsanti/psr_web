@@ -1,14 +1,13 @@
 import es6promise from 'es6-promise';
 es6promise.polyfill();
-
 import 'isomorphic-fetch';
-import Renderer from './layouts/renderer'
 
-// Global broken module scripts
-// import 'script-loader!./assets/global/plugins/jquery.min.js';
-// import 'script-loader!./assets/global/plugins/bootstrap/js/bootstrap.min.js';
-// import 'script-loader!./assets/global/plugins/ladda/spin.min.js';
-// import 'script-loader!./assets/global/plugins/ladda/ladda.min.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
+import App from './layouts/app';
+import configureStore from './store/configureStore'
 
 const component = () => {
   var element = document.createElement('div');
@@ -17,5 +16,27 @@ const component = () => {
 }
 document.body.appendChild(component());
 
-global.st_renderer = new Renderer();
-global.st_renderer.renderLogin();
+// store
+const store = configureStore()
+
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
+
+if (module.hot) {
+  module.hot.accept('./layouts/app', () => {
+    ReactDOM.render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>,
+      document.getElementById('root'),
+    )
+  })
+}

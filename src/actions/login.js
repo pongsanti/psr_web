@@ -3,6 +3,7 @@ import { noti_push } from './noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption} from './helper';
+import * as st_storage from '../layouts/storage';
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
@@ -50,9 +51,9 @@ export const loginPost = (loginData) => {
       .then(json => {
           // We can dispatch many times!
           // Here, we update the app state with the results of the API call.
-          dispatch(login_recv(json));
-          // render index page
-          global.st_renderer.renderIndex();
+          dispatch(login_recv(json));          
+          // put flag in storage
+          st_storage.userLogIn();
           return json;
         },
         error => {
@@ -75,11 +76,13 @@ export const logoutDelete = () => {
     .then(fetchResponseResolve, fetchResponseReject)
     .then(json => {
       dispatch(logout_recv(json))
-      // render index page
-      global.st_renderer.renderLogin();
+      // remove flag in the storage
+      st_storage.userLogout();
       return json;
     }, error => {
       const err_text = extract_string(error);
+      // remove flag in the storage
+      st_storage.userLogout();
       dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
       return error;
     });

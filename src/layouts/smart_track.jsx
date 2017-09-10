@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
-import { Route, withRouter } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import addNoti from './noti'
 
 // css
@@ -37,6 +37,11 @@ class SmartTrack extends Component {
     super(props);
   }
 
+  componentWillMount () {
+    document.body.className = '';
+    document.body.classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
+  }
+
   // Notification system
   _addNotification (notiObj) {
     addNoti(this, notiObj);
@@ -63,8 +68,10 @@ class SmartTrack extends Component {
           <div className='page-content-wrapper'>
             <div className='page-content'>
               <PageBar />
-              <Route exact path='/' component={Dashboard} />
-              <Route exact path='/users' component={UserList} />
+              <Switch>
+                <Route exact path='/dashboard' component={Dashboard} />
+                <Route exact path='/users' component={UserList} />
+              </Switch>
             </div>
           </div>
         </div>

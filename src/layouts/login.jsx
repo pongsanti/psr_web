@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Alert } from 'react-bootstrap';
 import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { loginPost } from '../actions'
 import addNoti from './noti'
 
@@ -57,6 +58,11 @@ class Login extends Component {
     }
   }
 
+  componentWillMount () {
+    document.body.className = '';
+    document.body.className = 'login';
+  }
+
   // Notification system
   _addNotification (notiObj) {
     addNoti(this, notiObj);
@@ -77,6 +83,7 @@ class Login extends Component {
       email: this.state.user.email,
       password: this.state.user.password
     }))
+    .then(() => this.props.history.push('/dashboard'))
   }
 
   onFormChange (value) {
@@ -170,4 +177,4 @@ class Login extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

@@ -8,13 +8,13 @@ class PageSidebar extends Component {
         <Navbar.Collapse className='page-sidebar'
           style={{paddingTop: '20px'}}>
           <Nav className='page-sidebar-menu'>
-            <LinkContainer to='/' exact>
-              <NavItem eventKey={1} href='#'>
+            <LinkContainer to='/dashboard' exact>
+              <NavItem eventKey={1}>
                 <i className='icon-home'></i>
                 <span className='title'>Dashboard</span>
               </NavItem>
             </LinkContainer>
-            <LinkContainer to='/users'>
+            <LinkContainer to='/users' exact>
               <NavItem eventKey={2}>
                 <i className='icon-user'></i>
                 <span className='title'>User</span>
