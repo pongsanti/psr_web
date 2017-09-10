@@ -23,3 +23,16 @@ export const postOption = (headers, body) => ({
   body
 });
 
+export const fetchResponseResolve = (response) => {
+  const json = response.json();
+    if(response.ok) {
+      return json;
+    } else {
+      return json.then(resolve => Promise.reject(resolve));
+    }
+}
+
+export const fetchResponseReject = (error) => {
+  console.log('An error occured.', error);
+  return Promise.reject(error);  
+}

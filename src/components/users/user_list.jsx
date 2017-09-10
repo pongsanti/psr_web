@@ -1,22 +1,31 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import PageTitle from '../page_title';
-import {Table} from 'react-bootstrap';
+import {Table, Pagination} from 'react-bootstrap';
+import { userGet } from '../../actions'
+
+const mapStateToProps = state => {
+  const {user} = state;
+  return {
+    users: user.users
+  }
+}
 
 class UserList extends Component {
+  componentDidMount () {
+    this.props.dispatch(userGet());
+  }
+
   render () {
     return (
       <div>
-        <PageTitle header='Users' subHeader='' />
-        <Table responsive striped hover>
+        <PageTitle header='Users' subHeader='users management' />
+        <Table responsive striped hover bordered>
           <thead>
             <tr>
               <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
+              <th>Email</th>
+              <th>Display Name</th>
             </tr>
           </thead>
           <tbody>
@@ -24,17 +33,9 @@ class UserList extends Component {
               <td>1</td>
               <td>Table cell</td>
               <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
               <td>Table cell</td>
               <td>Table cell</td>
             </tr>
@@ -42,16 +43,17 @@ class UserList extends Component {
               <td>3</td>
               <td>Table cell</td>
               <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
             </tr>
           </tbody>          
         </Table>
+        <Pagination
+          bsSize="medium"
+          items={10}
+          activePage={1}
+          onSelect={() => {}} />
       </div>
     )
   }
 }
 
-export default UserList;
+export default connect(mapStateToProps)(UserList);

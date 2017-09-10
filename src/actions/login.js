@@ -83,6 +83,5 @@ export const logoutDelete = () => {
       dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
       return error;
     });
-    console.log('after fetch')
   }
 }
