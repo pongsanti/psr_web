@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem from 'react-notification-system';
 import { Switch, Route, withRouter } from 'react-router-dom'
-import addNoti from './noti'
 
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
@@ -27,8 +26,7 @@ import Dashboard from '../components/users/dashboard';
 const mapStateToProps = state => {
   const {noti} = state;
   return {
-    showNoti: noti.showNoti,
-    notiObj: noti.notiObj
+    
   }
 }
 
@@ -42,21 +40,18 @@ class SmartTrack extends Component {
     document.body.classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
   }
 
-  // Notification system
-  _addNotification (notiObj) {
-    addNoti(this, notiObj);
+  initNotificationObj (noti) {
+    global.st_noti = noti;
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.showNoti) {
-      this._addNotification(nextProps.notiObj)
-    }
+    
   }  
 
   render () {
     return (
       <div className='page-wrapper'>
-        <NotificationSystem ref={(noti) => { this._notificationSystem = noti; }} />
+        <NotificationSystem ref={this.initNotificationObj} />
         <div className='page-header navbar navbar-fixed-top'>
           <PageHeaderInner />
         </div>

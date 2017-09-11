@@ -4,7 +4,6 @@ import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { loginPost } from '../actions'
-import addNoti from './noti'
 
 // import SweetAlert from 'sweetalert-react';
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
@@ -38,9 +37,7 @@ const mapStateToProps = state => {
   return {
     isFetching: login.isFetching,
     user: login.user,
-    error: login.error,
-    showNoti: noti.showNoti,
-    notiObj: noti.notiObj
+    error: login.error
   }
 }
 
@@ -63,9 +60,8 @@ class Login extends Component {
     document.body.className = 'login';
   }
 
-  // Notification system
-  _addNotification (notiObj) {
-    addNoti(this, notiObj);
+  initNotificationObj (noti) {
+    global.st_noti = noti;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,9 +69,6 @@ class Login extends Component {
       ...this.state,
       showError: nextProps.error != null
     })
-    if (nextProps.showNoti) {
-      this._addNotification(nextProps.notiObj)
-    }
   }
 
   onSubmit () {
@@ -132,7 +125,7 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <NotificationSystem ref={(noti) => { this._notificationSystem = noti; }} />
+        <NotificationSystem ref={this.initNotificationObj} />
         <div className='logo'>
           <img src={LOGO_IMG} />
         </div>       

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { noti_push } from './noti'
+import Noti from '../layouts/noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption} from './helper';
@@ -59,7 +59,7 @@ export const loginPost = (loginData) => {
         error => {
           const err_text = extract_string(error);
           dispatch(login_fail(err_text));
-          dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
+          Noti.notiError(err_text);
           return error;
         }
       )   
@@ -83,7 +83,7 @@ export const logoutDelete = () => {
       const err_text = extract_string(error);
       // remove flag in the storage
       st_storage.userLogout();
-      dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
+      Noti.notiError(err_text);
       return error;
     });
   }

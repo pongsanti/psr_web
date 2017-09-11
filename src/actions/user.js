@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { noti_push } from './noti'
+import Noti from '../layouts/noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption,
@@ -15,16 +15,18 @@ export const userGet = () => {
     const {login} = getState();
 
     dispatch(user_get());
+    Noti.notiLoading();
 
     return fetch(`${config.URL}/api/users`, fetchOption(fetchHeader(login.token), 'GET'))
     .then(fetchResponseResolve, fetchResponseReject)
     .then(json => {
       dispatch(user_recv(json))
+      Noti.notiClear();
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
-      dispatch(noti_push({message: err_text, level: 'error', title: 'Sorry - Something went wrong.'}));
+      Noti.notiError(err_text);
       return error;
     });
   }

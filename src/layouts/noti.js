@@ -1,13 +1,27 @@
-import {noti_clear} from '../actions';
+const ERROR_TITLE = 'Sorry - Something went wrong.';
+const LOADING_TITLE = 'Loading...';
+const LOADING_MSG = 'please wait';
 
-const _addNotification = (that, notiObj) => {
-  that._notificationSystem.addNotification({
-    title: notiObj.title,
-    message: notiObj.message,
-    level: notiObj.level,
-    position: 'tc',
-  });
-  that.props.dispatch(noti_clear());
+const notiObj = (title, message, level) => ({
+  title,
+  message,
+  level,
+  position: 'tc'
+})
+
+const notiError = (message) => {
+  st_noti.addNotification(notiObj(ERROR_TITLE, message, 'error'));
 }
 
-export default _addNotification;
+const notiLoading = () => {
+  let notiOpts = notiObj(LOADING_TITLE, LOADING_MSG, 'info');
+  notiOpts = {
+    ...notiOpts,
+    autoDismiss: false
+  }
+  st_noti.addNotification(notiOpts);
+}
+
+const notiClear = () => { st_noti.clearNotifications(); }
+
+export default {notiError, notiLoading, notiClear};
