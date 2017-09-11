@@ -8,10 +8,9 @@ class StPagination extends Component {
     const {pager} = this.props;
 
     return (
-      <Pagination bsSize="medium"
-        first
-        last
-        items={pager.total}
+      <Pagination bsSize='small'
+        first last next prev
+        items={pager.total_pages}
         activePage={pager.current_page}
         onSelect={() => {}} />
     )
