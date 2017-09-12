@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageTitle from '../page_title';
-import { Table, Button, ButtonGroup } from 'react-bootstrap';
+import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import StPagination from '../st_pagination';
 import { userGet } from '../../actions'
 
@@ -56,7 +56,7 @@ class UserList extends Component {
         <td>{index + 1}</td>
         <td>{user.email}</td>
         <td>{user.display_name}</td>
-        <td>{user.admin && 'Yes'}</td>
+        <td>{user.admin && <Label bsStyle='info'>Yes</Label>}</td>
         <td>
           <ButtonGroup>
             <Button className='green'><i className='icon-trash' /></Button>
