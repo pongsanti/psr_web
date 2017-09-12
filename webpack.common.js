@@ -10,7 +10,8 @@ module.exports = {
   },
   output: {
     filename: '[name].[hash].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -41,7 +42,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('[name].[id].[contenthash].css'),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'SmartTrack'
