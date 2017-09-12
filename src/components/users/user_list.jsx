@@ -41,7 +41,7 @@ class UserList extends Component {
         </ul>
         <div className='page-toolbar'>
           <ButtonGroup>
-            <Link to='/dashboard'>
+            <Link to={this.props.match.url + '/new'}>
               <Button className='green btn-outline'>New User</Button>
             </Link>
           </ButtonGroup>          
@@ -60,7 +60,6 @@ class UserList extends Component {
       </tr>
     ));
 
-    console.log(this.props.users)
     return (
       <div>
         {this.pageBar()}
