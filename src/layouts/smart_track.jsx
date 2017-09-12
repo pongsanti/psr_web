@@ -18,7 +18,6 @@ import '../assets/layouts/layout/css/custom.css';
 
 import PageHeaderInner from './page_header_inner'
 import PageSidebar from './page_sidebar'
-import PageBar from './page_bar'
 
 import UserList from '../components/users/user_list';
 import Dashboard from '../components/users/dashboard';
@@ -62,7 +61,6 @@ class SmartTrack extends Component {
           </div>
           <div className='page-content-wrapper'>
             <div className='page-content'>
-              <PageBar />
               <Switch>
                 <Route exact path='/dashboard' component={Dashboard} />
                 <Route exact path='/users' component={UserList} />
