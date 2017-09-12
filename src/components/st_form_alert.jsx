@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class StFormAlert extends Component {
   render () {
     return (
-      <Form.Message for={[this.props.field]}>
+      <Form.Message for={this.props.field}>
         { messages => (
           <Alert bsStyle='danger'>
             <ul>

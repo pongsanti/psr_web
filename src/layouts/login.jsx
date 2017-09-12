@@ -9,6 +9,7 @@ import { loginPost } from '../actions'
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
 import Form from 'react-formal';
 import yup from 'yup';
+import FormAlert from '../components/st_form_alert';
 
 // css
 import '../assets/global/plugins/font-awesome/css/font-awesome.css';
@@ -104,15 +105,7 @@ class Login extends Component {
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               type='password' name='password' placeholder='Password' />
           </div>
-          <Form.Message for={['email', 'password']}>
-            { messages => (
-              <Alert bsStyle='danger'>
-                <ul>
-                  {messages.map(msg => <li key={msg}>{msg}</li>)}
-                </ul>
-              </Alert>
-            )}
-          </Form.Message>          
+          <FormAlert field={['email', 'password']} />
         </div>
         <Form.Button type='submit' component={LaddaButton}
           className='btn green uppercase'
