@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ButtonGroup, Button, Alert, FormGroup, ControlLabel } from 'react-bootstrap';
+import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 import Form from 'react-formal';
 import yup from 'yup';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
@@ -11,7 +11,7 @@ import { userPost } from '../../actions'
 
 var defaultStr = yup.string().default('')
 var modelSchema = yup.object({
-  displayName: defaultStr.required('Please enter display name'),
+  display_name: defaultStr.required('Please enter display name'),
   email: defaultStr.required('Please enter email').email('Email is invalid'),
   password: defaultStr.required('Please enter password').min(8, 'Password too short (8)')
 });
@@ -20,7 +20,9 @@ class UserForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      user: {}
+      user: {
+        admin: false
+      }
     }
   }
 
@@ -46,6 +48,15 @@ class UserForm extends Component {
     })
   }
 
+  onAdminChange () {
+    this.setState({
+      user: {
+        ...this.state.user,
+        admin: !this.state.user.admin
+      }
+    })
+  }
+
   onSubmit () {
     this.props.dispatch(userPost(this.state.user));
   }
@@ -67,9 +78,9 @@ class UserForm extends Component {
         <div>
           <FormGroup>
             <ControlLabel>Display Name</ControlLabel>
-            {this.formMessage('displayName')}
+            {this.formMessage('display_name')}
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
-              name='displayName' placeholder='Display Name' />
+              name='display_name' placeholder='Display Name' />
           </FormGroup>
           <FormGroup>
             <ControlLabel>Email</ControlLabel>
@@ -82,6 +93,11 @@ class UserForm extends Component {
             {this.formMessage('password')}
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               type='password' name='password' placeholder='Password' />
+          </FormGroup>
+          <FormGroup>
+            <Checkbox className='mt-checkbox'
+              checked={this.state.user.admin}
+              onChange={this.onAdminChange.bind(this)}>Admin</Checkbox>
           </FormGroup>
         </div>
         <Form.Button type='submit' component={LaddaButton}
