@@ -63,7 +63,7 @@ class UserList extends Component {
     return (
       <div>
         {this.pageBar()}
-        <PageTitle header='Users' subHeader='users management' />
+        <PageTitle header='Users Management' />
         <Table responsive striped hover bordered>
           <thead>
             <tr>

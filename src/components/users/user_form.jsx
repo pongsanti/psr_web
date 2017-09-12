@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonGroup, Button, Alert } from 'react-bootstrap';
+import { ButtonGroup, Button, Alert, FormGroup, ControlLabel } from 'react-bootstrap';
 import Form from 'react-formal';
 import yup from 'yup';
-import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
+import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
 import PageTitle from '../page_title';
+import FormAlert from '../st_form_alert';
 
 var defaultStr = yup.string().default('')
 var modelSchema = yup.object({
@@ -47,6 +48,12 @@ class UserForm extends Component {
 
   }
 
+  formMessage (field) {
+    return (
+      <FormAlert field={field} />
+    );
+  }
+
   form () {
     return (
       <Form className='login-form'
@@ -56,35 +63,30 @@ class UserForm extends Component {
         onChange={this.onFormChange.bind(this)}
         onSubmit={this.onSubmit.bind(this)} >
         <div>
-          <Form.Message for={['email', 'displayName', 'password']}>
-            { messages => (
-              <Alert bsStyle='danger'>
-                <ul>
-                  {messages.map(msg => <li key={msg}>{msg}</li>)}
-                </ul>
-              </Alert>
-            )}
-          </Form.Message>
-          <div className='form-group'>
-            <label className='control-label visible-ie8 visible-ie9'>Display Name</label>
+          <FormGroup>
+            <ControlLabel>Display Name</ControlLabel>
+            {this.formMessage('displayName')}
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               name='displayName' placeholder='Display Name' />
-          </div>              
-          <div className='form-group'>
-            <label className='control-label visible-ie8 visible-ie9'>Email</label>
+          </FormGroup>
+          <FormGroup>
+            <ControlLabel>Email</ControlLabel>
+            {this.formMessage('email')}
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               name='email' placeholder='Email' />
-          </div>
-          <div className='form-group'>
-            <label className='control-label visible-ie8 visible-ie9'>Password</label>
+          </FormGroup>
+          <FormGroup>
+            <ControlLabel>Password</ControlLabel>
+            {this.formMessage('password')}
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               type='password' name='password' placeholder='Password' />
-          </div>         
+          </FormGroup>
         </div>
         <Form.Button type='submit' component={LaddaButton}
-          className='btn green uppercase'
+          className='btn green'
           loading={this.props.isFetching}
           data-style={EXPAND_LEFT}
+          data-size={S}
           data-spinner-size={30}>Submit</Form.Button>
     </Form>)
   }  
