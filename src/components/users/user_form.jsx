@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ButtonGroup, Button, Alert, FormGroup, ControlLabel } from 'react-bootstrap';
 import Form from 'react-formal';
@@ -6,6 +7,7 @@ import yup from 'yup';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
 import PageTitle from '../page_title';
 import FormAlert from '../st_form_alert';
+import { userPost } from '../../actions'
 
 var defaultStr = yup.string().default('')
 var modelSchema = yup.object({
@@ -45,13 +47,13 @@ class UserForm extends Component {
   }
 
   onSubmit () {
-
+    this.props.dispatch(userPost(this.state.user));
   }
 
   formMessage (field) {
     return (
       <FormAlert field={field} />
-    );
+    )
   }
 
   form () {
@@ -104,4 +106,4 @@ class UserForm extends Component {
   }
 }
 
-export default UserForm;
+export default connect()(UserForm);

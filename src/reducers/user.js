@@ -25,6 +25,16 @@ const reducer = handleActions({
     ...state,
     isFetching: false,
     error: action.payload
+  }),
+  [ActionTypes.user_post]: (state, action) => ({
+    ...state,
+    isFetching: true,
+    error: null,
+  }),
+  [ActionTypes.user_post_recv]: (state, action) => ({
+    ...state,
+    isFetching: false,
+    error: null
   })  
 }, defaultState);
 
