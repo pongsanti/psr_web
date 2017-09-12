@@ -57,6 +57,12 @@ class UserList extends Component {
         <td>{user.email}</td>
         <td>{user.display_name}</td>
         <td>{user.admin && 'Yes'}</td>
+        <td>
+          <ButtonGroup>
+            <Button className='green'><i className='icon-trash' /></Button>
+            <Button><i className='icon-trash' /></Button>
+          </ButtonGroup>  
+        </td>
       </tr>
     ));
 
@@ -71,6 +77,7 @@ class UserList extends Component {
               <th>Email</th>
               <th>Display Name</th>
               <th>Admin?</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
