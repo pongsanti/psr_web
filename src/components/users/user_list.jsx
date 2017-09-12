@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PageTitle from '../page_title';
 import { Table, Button, ButtonGroup } from 'react-bootstrap';
 import StPagination from '../st_pagination';
@@ -26,21 +27,23 @@ class UserList extends Component {
     return (
       <div className='page-bar'>
         <ul className="page-breadcrumb">
-          <li>
+          {/* <li>
               <a href="index.html">Home</a>
               <i className="fa fa-circle"></i>
           </li>
           <li>
               <a href="#">Blank Page</a>
               <i className="fa fa-circle"></i>
-          </li>
+          </li> */}
           <li>
-              <span>Page Layouts</span>
+              <span>Users List</span>
           </li>
         </ul>
         <div className='page-toolbar'>
           <ButtonGroup>
-            <Button className='green btn-outline'>New User</Button>
+            <Link to='/dashboard'>
+              <Button className='green btn-outline'>New User</Button>
+            </Link>
           </ButtonGroup>          
         </div>
       </div>
