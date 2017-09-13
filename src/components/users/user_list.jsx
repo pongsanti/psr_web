@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import PageTitle from '../page_title';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import StPagination from '../st_pagination';
-import { userGet } from '../../actions'
+import StTableHeader from '../st_table_header';
+import StTableHeaderGroup from '../st_table_header_group';
+import { userGet, user_header_click } from '../../actions'
 
 const mapStateToProps = state => {
   const {user} = state;
   return {
     users: user.users,
-    pager: user.pager
+    pager: user.pager,
+    sortField: user.sort.field
   }
 }
 
@@ -50,6 +53,14 @@ class UserList extends Component {
     )
   }
 
+  onTableHeaderClick (field, direction) {
+    const sortObj = {
+      field, direction
+    }
+    this.props.dispatch(user_header_click(sortObj));
+    this.props.dispatch(userGet());
+  }
+
   render () {
     const tbody = this.props.users.map((user, index) => (
       <tr key={user.id}>
@@ -72,13 +83,16 @@ class UserList extends Component {
         <PageTitle header='Users Management' />
         <Table responsive striped hover bordered>
           <thead>
-            <tr>
+            <StTableHeaderGroup currentSortField={this.props.sortField}>
               <th>#</th>
-              <th>Email</th>
-              <th>Display Name</th>
-              <th>Admin?</th>
+              <StTableHeader header='Email' fieldName='email'
+                onClick={this.onTableHeaderClick.bind(this)} />
+              <StTableHeader header='Display Name' fieldName='display_name'
+                onClick={this.onTableHeaderClick.bind(this)} />
+              <StTableHeader header='Admin?' fieldName='admin'
+                onClick={this.onTableHeaderClick.bind(this)} />
               <th></th>
-            </tr>
+            </StTableHeaderGroup>
           </thead>
           <tbody>
             {tbody}

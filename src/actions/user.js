@@ -10,17 +10,24 @@ export const user_get = createAction('USER_GET');
 export const user_recv = createAction('USER_RECV');
 export const user_fail = createAction('USER_FAIL');
 
+export const user_header_click = createAction('USER_HEADER_CLICK');
+
 export const user_post = createAction('USER_POST');
 export const user_post_recv = createAction('USER_POST_RECV');
 
+const userGetUrl = (sortObj) => {
+  const {field, direction} = sortObj
+  return `${config.URL}/api/users?order=${field}&direction=${direction}`
+}
+
 export const userGet = () => {
   return (dispatch, getState) => {
-    const {login} = getState();
+    const {login, user} = getState();
 
     dispatch(user_get());
     Noti.notiLoading();
 
-    return fetch(`${config.URL}/api/users`, fetchOption(fetchHeader(login.token), 'GET'))
+    return fetch(userGetUrl(user.sort), fetchOption(fetchHeader(login.token), 'GET'))
     .then(fetchResponseResolve, fetchResponseReject)
     .then(json => {
       dispatch(user_recv(json))

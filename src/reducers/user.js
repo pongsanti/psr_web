@@ -3,12 +3,20 @@ import * as ActionTypes from '../actions'
 
 const defaultState = {
   isFetching: false,
+  sort: {
+    field: 'id',
+    direction: 'asc'
+  },
   users: [],
   pager: {},
   error: null,
 }
 
 const reducer = handleActions({
+  [ActionTypes.user_header_click]: (state, action) => ({
+    ...state,
+    sort: action.payload
+  }),
   [ActionTypes.user_get]: (state, action) => ({
     ...state,
     isFetching: true,
