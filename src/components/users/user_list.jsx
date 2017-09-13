@@ -68,6 +68,7 @@ class UserList extends Component {
         <td>{user.email}</td>
         <td>{user.display_name}</td>
         <td>{user.admin && <Label bsStyle='info'>Yes</Label>}</td>
+        <td>{user.created_at}</td>
         <td>
           <ButtonGroup>
             <Button className='green'><i className='fa fa-cog' /></Button>
@@ -91,6 +92,8 @@ class UserList extends Component {
                 onClick={this.onTableHeaderClick.bind(this)} />
               <StTableHeader header='Admin?' fieldName='admin'
                 onClick={this.onTableHeaderClick.bind(this)} />
+              <StTableHeader header='Created At' fieldName='created_at'
+                onClick={this.onTableHeaderClick.bind(this)} />                
               <th></th>
             </StTableHeaderGroup>
           </thead>
