@@ -70,8 +70,8 @@ class UserList extends Component {
         <td>{user.admin && <Label bsStyle='info'>Yes</Label>}</td>
         <td>
           <ButtonGroup>
-            <Button className='green'><i className='icon-trash' /></Button>
-            <Button><i className='icon-trash' /></Button>
+            <Button className='green'><i className='fa fa-cog' /></Button>
+            <Button><i className='fa fa-trash' /></Button>
           </ButtonGroup>  
         </td>
       </tr>
