@@ -6,7 +6,9 @@ module.exports = merge(common, {
   devtool: 'cheap-eval-source-map',
   devServer: {
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: {
+      index: '/'
+    },
   },
   plugins: [
     new Webpack.HotModuleReplacementPlugin()
