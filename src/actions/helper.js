@@ -36,3 +36,8 @@ export const fetchResponseReject = (error) => {
   console.log('An error occured.', error);
   return Promise.reject(error);  
 }
+
+export const fetchPromise = (url, option) => (
+  fetch(url, option)
+  .then(fetchResponseResolve, fetchResponseReject)
+)
