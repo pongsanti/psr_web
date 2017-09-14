@@ -6,7 +6,8 @@ import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import StPagination from '../st_pagination';
 import StTableHeader from '../st_table_header';
 import StTableHeaderGroup from '../st_table_header_group';
-import { userGet, user_header_click } from '../../actions'
+import StConfirmDialog from '../st_confirm_dialog';
+import { userGet, user_header_click, userDelete } from '../../actions'
 
 const mapStateToProps = state => {
   const {user} = state;
@@ -20,10 +21,20 @@ const mapStateToProps = state => {
 class UserList extends Component {
   constructor (props) {
     super(props)
+    
+    this.state = {
+      showConfirmDialog: false,
+      deleteId: ''
+    }
   }
 
   componentDidMount () {
-    this.props.dispatch(userGet());
+    this.getUsers();
+  }
+
+  getUsers () {
+    const {dispatch} = this.props;
+    dispatch(userGet());
   }
   
   pageBar () {
@@ -61,6 +72,26 @@ class UserList extends Component {
     this.props.dispatch(userGet());
   }
 
+  onDeleteClick (id) {
+    this.setState({
+      showConfirmDialog: true,
+      deleteId: id
+    });
+  }
+
+  onDeleteConfirm () {
+    const {dispatch} = this.props;
+    dispatch(userDelete(this.state.deleteId))
+    .then(this.closeModal.bind(this))
+    .then(this.getUsers.bind(this));
+  }
+
+  closeModal () {
+    this.setState({
+      showConfirmDialog: false
+    })
+  }
+
   render () {
     const tbody = this.props.users.map((user, index) => (
       <tr key={user.id}>
@@ -72,7 +103,7 @@ class UserList extends Component {
         <td>
           <ButtonGroup>
             <Button className='green'><i className='fa fa-cog' /></Button>
-            <Button><i className='fa fa-trash' /></Button>
+            <Button onClick={this.onDeleteClick.bind(this, user.id)}><i className='fa fa-trash' /></Button>
           </ButtonGroup>  
         </td>
       </tr>
@@ -80,6 +111,8 @@ class UserList extends Component {
 
     return (
       <div>
+        <StConfirmDialog show={this.state.showConfirmDialog}
+          onConfirmClick={this.onDeleteConfirm.bind(this)} />
         {this.pageBar()}
         <PageTitle header='Users Management' />
         <Table responsive striped hover bordered>
