@@ -36,6 +36,7 @@ export const userGet = () => {
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
+      Noti.notiClear();
       Noti.notiError(err_text);
       return error;
     });
