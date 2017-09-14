@@ -5,7 +5,8 @@ const defaultState = {
   isFetching: false,
   token: null,
   user: {
-    email: ''
+    email: '',
+    admin: false
   },
   error: null
 }

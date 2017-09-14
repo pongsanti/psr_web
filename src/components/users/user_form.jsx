@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 import Form from 'react-formal';
 import yup from 'yup';
@@ -58,7 +59,8 @@ class UserForm extends Component {
   }
 
   onSubmit () {
-    this.props.dispatch(userPost(this.state.user));
+    this.props.dispatch(userPost(this.state.user))
+    .then(() => this.props.history.push('/users'))
   }
 
   formMessage (field) {
@@ -122,4 +124,4 @@ class UserForm extends Component {
   }
 }
 
-export default connect()(UserForm);
+export default withRouter(connect()(UserForm));

@@ -24,9 +24,9 @@ import UserForm from '../components/users/user_form';
 import Dashboard from '../components/users/dashboard';
 
 const mapStateToProps = state => {
-  const {noti} = state;
+  const {login} = state;
   return {
-    
+    admin: login.user.admin
   }
 }
 
@@ -64,8 +64,8 @@ class SmartTrack extends Component {
             <div className='page-content'>
               <Switch>
                 <Route exact path='/dashboard' component={Dashboard} />
-                <Route exact path='/users' component={UserList} />
-                <Route exact path='/users/new' component={UserForm} />
+                {this.props.admin && <Route exact path='/users' component={UserList} /> }
+                {this.props.admin && <Route exact path='/users/new' component={UserForm} /> }
               </Switch>
             </div>
           </div>
