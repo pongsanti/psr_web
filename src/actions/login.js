@@ -27,7 +27,7 @@ const fetchResponseReject = (error) => {
 }
 
 export const loginPost = (loginData) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
     dispatch(login_post())
@@ -53,7 +53,8 @@ export const loginPost = (loginData) => {
           // Here, we update the app state with the results of the API call.
           dispatch(login_recv(json));          
           // put flag in storage
-          st_storage.userLogIn();
+          const {login} = getState();
+          st_storage.userLogIn(login.token);
           return json;
         },
         error => {
