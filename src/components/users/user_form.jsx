@@ -90,6 +90,12 @@ class UserForm extends Component {
               type='password' name='password' placeholder='Password' />
           </FormGroup>
           <FormGroup>
+            <ControlLabel>Confirm Password</ControlLabel>
+            {this.formMessage('confirm_password')}
+            <Form.Field className='form-control form-control-solid placeholder-no-fix'
+              type='password' name='confirm_password' placeholder='Confirm password' />
+          </FormGroup>          
+          <FormGroup>
             <Checkbox className='mt-checkbox'
               checked={this.state.user.admin}
               onChange={this.onAdminChange.bind(this)}>Admin</Checkbox>
