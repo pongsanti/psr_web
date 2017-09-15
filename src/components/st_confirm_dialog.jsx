@@ -19,9 +19,13 @@ class StConfirmDialog extends Component {
   }
 
   close () {
+    if (this.props.onCloseClick) {
+      this.props.onCloseClick();
+    }
+    
     this.setState({
       show: false
-    })
+    });
   }
 
   onConfirm () {
@@ -52,7 +56,8 @@ class StConfirmDialog extends Component {
 
 StConfirmDialog.propTypes = {
   show: PropTypes.bool.isRequired,
-  onConfirmClick: PropTypes.func
+  onConfirmClick: PropTypes.func,
+  onCloseClick: PropTypes.func
 }
 
 export default StConfirmDialog;

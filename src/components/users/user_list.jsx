@@ -86,6 +86,10 @@ class UserList extends Component {
     .then(this.getUsers.bind(this));
   }
 
+  onDeleteConfirmClose () {
+    this.closeModal();
+  }
+
   closeModal () {
     this.setState({
       showConfirmDialog: false
@@ -112,7 +116,8 @@ class UserList extends Component {
     return (
       <div>
         <StConfirmDialog show={this.state.showConfirmDialog}
-          onConfirmClick={this.onDeleteConfirm.bind(this)} />
+          onConfirmClick={this.onDeleteConfirm.bind(this)}
+          onCloseClick={this.onDeleteConfirmClose.bind(this)} />
         {this.pageBar()}
         <PageTitle header='Users Management' />
         <Table responsive striped hover bordered>
