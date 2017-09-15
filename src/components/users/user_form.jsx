@@ -4,18 +4,11 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'
 import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 import Form from 'react-formal';
-import yup from 'yup';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
 import PageTitle from '../page_title';
 import FormAlert from '../st_form_alert';
-import { userPost } from '../../actions'
-
-var defaultStr = yup.string().default('')
-var modelSchema = yup.object({
-  display_name: defaultStr.required('Please enter display name'),
-  email: defaultStr.required('Please enter email').email('Email is invalid'),
-  password: defaultStr.required('Please enter password').min(8, 'Password too short (8)')
-});
+import { userPost } from '../../actions';
+import formSchema from './user_form_schema';
 
 class UserForm extends Component {
   constructor (props) {
@@ -72,8 +65,8 @@ class UserForm extends Component {
   form () {
     return (
       <Form className='login-form'
-        schema={modelSchema}
-        defaultValue={modelSchema.default()}
+        schema={formSchema}
+        defaultValue={formSchema.default()}
         value={this.state.user}
         onChange={this.onFormChange.bind(this)}
         onSubmit={this.onSubmit.bind(this)} >
