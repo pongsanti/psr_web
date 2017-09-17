@@ -3,6 +3,7 @@ import Noti from '../layouts/noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption,
+  patchOption,
   fetchPromise } from './helper';
 
 export const user_get = createAction('USER_GET');
@@ -11,6 +12,7 @@ export const user_fail = createAction('USER_FAIL');
 
 export const user_header_click = createAction('USER_HEADER_CLICK');
 
+export const user_new = createAction('USER_NEW');
 export const user_post = createAction('USER_POST');
 export const user_post_recv = createAction('USER_POST_RECV');
 
@@ -65,7 +67,7 @@ export const userPost = (postData) => {
       dispatch(user_fail(err_text));
       Noti.notiClear();
       Noti.notiError(err_text);
-      return error;
+      return Promise.reject(error);
     });
   }
 }
@@ -110,7 +112,7 @@ export const userPatch = (patchData) => {
       dispatch(user_fail(err_text));
       Noti.notiClear();
       Noti.notiError(err_text);
-      return error;
+      return Promise.reject(error);
     })
   }
 }

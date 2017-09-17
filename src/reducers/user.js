@@ -26,6 +26,10 @@ const handleFetchSuccess = (state, action) => ({
 })
 
 const reducer = handleActions({
+  [ActionTypes.user_new]: (state, action) => ({
+    ...state,
+    curUser: defaultState.curUser,
+  }),
   [ActionTypes.user_edit]: (state, action) => ({
     ...state,
     curUser: action.payload,

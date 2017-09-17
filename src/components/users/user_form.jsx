@@ -19,14 +19,25 @@ const mapStateToProps = state => {
 class UserForm extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      user: {
-        admin: false
+
+    let user = {
+      admin: false
+    }
+
+    // Initialize edit user fields
+    if (props.curUser !== null) {
+      const {email, display_name, admin} = props.curUser;
+      user = {
+        email, display_name, admin
       }
     }
-  }
 
-  pageBar () {
+    this.state = {
+      user
+    };
+  }
+  
+  pageBar (edit) {
     return (
       <div className='page-bar'>
         <ul className="page-breadcrumb">
@@ -35,7 +46,7 @@ class UserForm extends Component {
             <i className="fa fa-circle"></i>
           </li>
           <li>
-            <span>New User</span>
+            <span>{edit? 'Edit User' : 'New User'}</span>
           </li>
         </ul>
       </div>
@@ -57,9 +68,17 @@ class UserForm extends Component {
     })
   }
 
+  formDispatchFetch () {
+    const edit = this.edit();
+    return edit? userPatch : userPost
+  }
+
   onSubmit () {
-    this.props.dispatch(userPost(this.state.user))
-    .then(() => this.props.history.push('/users'))
+    const {dispatch, history} = this.props
+    dispatch(this.formDispatchFetch()(this.state.user))
+    .then(
+      () => history.push('/users'),
+      (error) => {/* failure, do not naviagate page. */});
   }
 
   formMessage (field) {
@@ -134,10 +153,11 @@ class UserForm extends Component {
   }  
 
   render () {
+    const edit = this.edit();
     return (
       <div>
-        {this.pageBar()}
-        <PageTitle header='New User' subHeader='' />
+        {this.pageBar(edit)}
+        <PageTitle header={edit? 'Edit User' : 'New User'} subHeader='' />
         <div className='portlet light bordered'>
           {this.form()}
         </div>

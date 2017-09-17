@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PageTitle from '../page_title';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import StPagination from '../st_pagination';
@@ -8,7 +8,8 @@ import StTableHeader from '../st_table_header';
 import StTableHeaderGroup from '../st_table_header_group';
 import StConfirmDialog from '../st_confirm_dialog';
 import { userGet, user_header_click,
-  userDelete, user_edit } from '../../actions'
+  userDelete, user_edit,
+  user_new } from '../../actions'
 
 const mapStateToProps = state => {
   const {user} = state;
@@ -56,13 +57,17 @@ class UserList extends Component {
         </ul>
         <div className='page-toolbar'>
           <ButtonGroup>
-            <Link to={this.props.match.url + '/new'}>
-              <Button className='green btn-outline'>New User</Button>
-            </Link>
+            <Button onClick={this.onNewUserClick.bind(this)} className='green btn-outline'>New User</Button>
           </ButtonGroup>          
         </div>
       </div>
     )
+  }
+
+  onNewUserClick () {
+    const {dispatch, history} = this.props;
+    dispatch(user_new());
+    history.push('/users/new');
   }
 
   onTableHeaderClick (field, direction) {
