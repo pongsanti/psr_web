@@ -12,6 +12,7 @@ import getModelSchema from './user_form_schema';
 const mapStateToProps = state => {
   const {user} = state;
   return {
+    isFetching: user.isFetching,
     curUser: user.curUser,
   }
 }
