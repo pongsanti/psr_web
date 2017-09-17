@@ -9,6 +9,7 @@ const defaultState = {
   },
   users: [],
   pager: {},
+  curUser: null,
   error: null,
 }
 
@@ -18,7 +19,17 @@ const handleFetchStart = (state, action) => ({
   error: null
 })
 
+const handleFetchSuccess = (state, action) => ({
+  ...state,
+  isFetching: false,
+  error: null
+})
+
 const reducer = handleActions({
+  [ActionTypes.user_edit]: (state, action) => ({
+    ...state,
+    curUser: action.payload,
+  }),
   [ActionTypes.user_header_click]: (state, action) => ({
     ...state,
     sort: action.payload
@@ -37,17 +48,14 @@ const reducer = handleActions({
     error: action.payload
   }),
   [ActionTypes.user_post]: handleFetchStart,
-  [ActionTypes.user_post_recv]: (state, action) => ({
-    ...state,
-    isFetching: false,
-    error: null
-  }),
+  [ActionTypes.user_post_recv]: handleFetchSuccess,
   [ActionTypes.user_del]: handleFetchStart,
-  [ActionTypes.user_del_recv]: (state, action) => ({
-    ...state,
-    isFetching: false,
-    error: null
-  }),
+  [ActionTypes.user_del_recv]: handleFetchSuccess,
+  [ActionTypes.user_patch]: handleFetchStart,
+  [ActionTypes.user_patch_recv]: (state, action) => ({
+    ...handleFetchSuccess(state, action),
+    curUser: defaultState.curUser,
+  }),  
 }, defaultState);
 
 export default reducer;

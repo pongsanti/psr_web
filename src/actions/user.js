@@ -17,6 +17,10 @@ export const user_post_recv = createAction('USER_POST_RECV');
 export const user_del = createAction('USER_DEL');
 export const user_del_recv = createAction('USER_DEL_RECV');
 
+export const user_edit = createAction('USER_EDIT');
+export const user_patch = createAction('USER_PATCH');
+export const user_patch_recv = createAction('USER_PATCH_RECV');
+
 const userGetUrl = (sortObj) => {
   const {field, direction} = sortObj
   return `${config.URL}/api/users?order=${field}&direction=${direction}`
@@ -76,6 +80,29 @@ export const userDelete = (id) => {
     return fetchPromise(`${config.URL}/api/users/${id}`, fetchOption(fetchHeader(login.token), 'DELETE'))
     .then(json => {
       dispatch(user_del_recv())
+      Noti.notiClear();
+      return json;
+    }, error => {
+      const err_text = extract_string(error);
+      dispatch(user_fail(err_text));
+      Noti.notiClear();
+      Noti.notiError(err_text);
+      return error;
+    })
+  }
+}
+
+export const userPatch = (patchData) => {
+  return (dispatch, getState) => {
+    const {login, user} = getState();
+    const id = user.curUser.id
+
+    dispatch(user_patch());
+    Noti.notiLoading();
+
+    return fetchPromise(`${config.URL}/api/users/${id}`, patchOption(fetchHeader(login.token), JSON.stringify(patchData)))
+    .then(json => {
+      dispatch(user_patch_recv())
       Noti.notiClear();
       return json;
     }, error => {

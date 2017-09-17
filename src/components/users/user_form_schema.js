@@ -8,7 +8,7 @@ function samePassword() {
 };
 
 const defaultStr = yup.string().default('')
-const modelSchema = yup.object({
+const createModelSchema = yup.object({
   display_name: defaultStr.required('Please enter display name'),
   email: defaultStr.required('Please enter email').email('Email is invalid'),
   password: defaultStr.required('Please enter password').min(8, 'Password too short (8)')
@@ -17,4 +17,11 @@ const modelSchema = yup.object({
     .test('passwords-match', 'Passwords do not match', samePassword),
 });
 
-export default modelSchema;
+const editModelSchema = yup.object({
+  display_name: defaultStr.required('Please enter display name'),
+  email: defaultStr.required('Please enter email').email('Email is invalid'),
+});
+
+const getModelSchema = edit => (edit ? editModelSchema : createModelSchema);
+
+export default getModelSchema;

@@ -66,6 +66,7 @@ class SmartTrack extends Component {
                 <Route exact path='/dashboard' component={Dashboard} />
                 {this.props.admin && <Route exact path='/users' component={UserList} /> }
                 {this.props.admin && <Route exact path='/users/new' component={UserForm} /> }
+                {this.props.admin && <Route exact path='/users/edit' component={UserForm} /> }
               </Switch>
             </div>
           </div>

@@ -1,4 +1,5 @@
-const POST = 'POST'
+const POST = 'POST';
+const PATCH = 'PATCH';
 
 export const fetchOption = (headers, method='POST', body=null) => {
   const opt = {headers, method}
@@ -20,6 +21,12 @@ export const fetchHeader = (token=null) => {
 export const postOption = (headers, body) => ({
   headers,
   method: POST,
+  body
+});
+
+export const patchOption = (headers, body) => ({
+  headers,
+  method: PATCH,
   body
 });
 

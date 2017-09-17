@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
 import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 import Form from 'react-formal';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
 import PageTitle from '../page_title';
 import FormAlert from '../st_form_alert';
-import { userPost } from '../../actions';
-import formSchema from './user_form_schema';
+import { userPost, userPatch } from '../../actions';
+import getModelSchema from './user_form_schema';
+
+const mapStateToProps = state => {
+  const {user} = state;
+  return {
+    curUser: user.curUser,
+  }
+}
 
 class UserForm extends Component {
   constructor (props) {
@@ -62,7 +68,18 @@ class UserForm extends Component {
     )
   }
 
+  edit () {
+    return this.props.curUser !== null;
+  }
+
+  formModel (edit) {
+    return edit ? editModelSchema : createModelSchema;
+  }
+
   form () {
+    const edit = this.edit();
+    const formSchema = getModelSchema(edit);
+
     return (
       <Form className='login-form'
         schema={formSchema}
@@ -83,18 +100,24 @@ class UserForm extends Component {
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               name='email' placeholder='Email' />
           </FormGroup>
-          <FormGroup>
-            <ControlLabel>Password</ControlLabel>
-            {this.formMessage('password')}
-            <Form.Field className='form-control form-control-solid placeholder-no-fix'
-              type='password' name='password' placeholder='Password' />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Confirm Password</ControlLabel>
-            {this.formMessage('confirm_password')}
-            <Form.Field className='form-control form-control-solid placeholder-no-fix'
-              type='password' name='confirm_password' placeholder='Confirm password' />
-          </FormGroup>          
+
+          { !edit && 
+            <div>
+              <FormGroup>
+                <ControlLabel>Password</ControlLabel>
+                {this.formMessage('password')}
+                <Form.Field className='form-control form-control-solid placeholder-no-fix'
+                  type='password' name='password' placeholder='Password' />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Confirm Password</ControlLabel>
+                {this.formMessage('confirm_password')}
+                <Form.Field className='form-control form-control-solid placeholder-no-fix'
+                  type='password' name='confirm_password' placeholder='Confirm password' />
+              </FormGroup>
+            </div>
+          }
+
           <FormGroup>
             <Checkbox className='mt-checkbox'
               checked={this.state.user.admin}
@@ -123,4 +146,4 @@ class UserForm extends Component {
   }
 }
 
-export default withRouter(connect()(UserForm));
+export default withRouter(connect(mapStateToProps)(UserForm));

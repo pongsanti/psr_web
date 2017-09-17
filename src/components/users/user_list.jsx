@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PageTitle from '../page_title';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import StPagination from '../st_pagination';
 import StTableHeader from '../st_table_header';
 import StTableHeaderGroup from '../st_table_header_group';
 import StConfirmDialog from '../st_confirm_dialog';
-import { userGet, user_header_click, userDelete } from '../../actions'
+import { userGet, user_header_click,
+  userDelete, user_edit } from '../../actions'
 
 const mapStateToProps = state => {
   const {user} = state;
@@ -72,6 +73,12 @@ class UserList extends Component {
     this.props.dispatch(userGet());
   }
 
+  onEditClick (user) {
+    const {dispatch, history} = this.props;
+    dispatch(user_edit(user));
+    history.push('/users/edit');
+  }
+
   onDeleteClick (id) {
     this.setState({
       showConfirmDialog: true,
@@ -106,7 +113,7 @@ class UserList extends Component {
         <td>{user.created_at}</td>
         <td>
           <ButtonGroup>
-            <Button className='green'><i className='fa fa-cog' /></Button>
+            <Button className='green' onClick={this.onEditClick.bind(this, user)}><i className='fa fa-cog' /></Button>
             <Button onClick={this.onDeleteClick.bind(this, user.id)}><i className='fa fa-trash' /></Button>
           </ButtonGroup>  
         </td>
@@ -145,4 +152,4 @@ class UserList extends Component {
   }
 }
 
-export default connect(mapStateToProps)(UserList);
+export default withRouter(connect(mapStateToProps)(UserList));
