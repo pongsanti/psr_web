@@ -26,6 +26,10 @@ class PageHeaderInner extends Component {
     .then(() => this.props.history.push('/'));
   }
 
+  onChangePasswordSelect () {
+    this.props.history.push('/users/change_password');
+  }
+
   render () {
     const displayName = this.props.user.display_name;
     const {email} = this.props.user;
@@ -43,7 +47,8 @@ class PageHeaderInner extends Component {
               id='user-dropdown'
               className='dropdown-user'
               noCaret>
-              <MenuItem eventKey={3.1} onSelect={this.onLogoutSelect.bind(this)}>Logout</MenuItem>
+              <MenuItem eventKey={1.1} onSelect={this.onChangePasswordSelect.bind(this)}>Change Password</MenuItem>
+              <MenuItem eventKey={2.1} onSelect={this.onLogoutSelect.bind(this)}>Logout</MenuItem>
             </NavDropdown>
           </Nav>
           {/* <ul className='nav navbar-nav pull-right'>

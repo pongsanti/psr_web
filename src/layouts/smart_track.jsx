@@ -21,6 +21,7 @@ import PageSidebar from './page_sidebar'
 
 import UserList from '../components/users/user_list';
 import UserForm from '../components/users/user_form';
+import ChangePassword from '../components/users/change_password';
 import Dashboard from '../components/users/dashboard';
 
 const mapStateToProps = state => {
@@ -64,6 +65,7 @@ class SmartTrack extends Component {
             <div className='page-content'>
               <Switch>
                 <Route exact path='/dashboard' component={Dashboard} />
+                <Route exact path='/users/change_password' component={ChangePassword} />
                 {this.props.admin && <Route exact path='/users' component={UserList} /> }
                 {this.props.admin && <Route exact path='/users/new' component={UserForm} /> }
                 {this.props.admin && <Route exact path='/users/edit' component={UserForm} /> }
