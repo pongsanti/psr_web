@@ -22,27 +22,29 @@ class StPagination extends Component {
 
     const prev = pager.prev_page !== null
     const next = pager.next_page !== null
+    const current_page = pager.current_page
+    const page_size = pager.limit_value
+
     return (
       <Grid>
         <Row>
           <Col md={4}>
-            <div>
             <Pagination bsSize='small'
               first last
               prev={prev}
               next={next}
               items={pager.total_pages}
-              activePage={pager.current_page}
+              activePage={current_page}
               onSelect={this.onSelect.bind(this)} />
-            </div>
           </Col>
           <Col md={4}>
-            Page Size: {' '}
+            Displays: {' '}
             <ButtonGroup>
-              <Button onClick={this.pageSizeClick.bind(this, 5)}>5</Button>
-              <Button onClick={this.pageSizeClick.bind(this, 10)}>10</Button>
-              <Button onClick={this.pageSizeClick.bind(this, 15)}>15</Button>
+              <Button active={page_size === 5} onClick={this.pageSizeClick.bind(this, 5)}>5</Button>
+              <Button active={page_size === 10} onClick={this.pageSizeClick.bind(this, 10)}>10</Button>
+              <Button active={page_size === 15} onClick={this.pageSizeClick.bind(this, 15)}>15</Button>
             </ButtonGroup>
+            {' '} items
           </Col>
           <Col md={4}>
             Total: {pager.total} items

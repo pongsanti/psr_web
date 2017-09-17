@@ -155,7 +155,7 @@ class UserList extends Component {
                 onClick={this.onTableHeaderClick.bind(this)} />
               <StTableHeader header='Created At' fieldName='created_at'
                 onClick={this.onTableHeaderClick.bind(this)} />                
-              <th></th>
+              <th>Actions</th>
             </StTableHeaderGroup>
           </thead>
           <tbody>
