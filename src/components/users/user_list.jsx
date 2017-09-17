@@ -9,7 +9,8 @@ import StTableHeaderGroup from '../st_table_header_group';
 import StConfirmDialog from '../st_confirm_dialog';
 import { userGet, user_header_click,
   userDelete, user_edit,
-  user_new } from '../../actions'
+  user_new,
+  user_page_change, user_page_size_change } from '../../actions'
 
 const mapStateToProps = state => {
   const {user} = state;
@@ -108,10 +109,21 @@ class UserList extends Component {
     })
   }
 
+  onPageSizeClick (value) {
+    const {dispatch} = this.props
+    dispatch(user_page_size_change(value));
+    dispatch(userGet());
+  }
+
+  onPageSelect (value) {
+    const {dispatch} = this.props
+    dispatch(user_page_change(value));
+    dispatch(userGet());
+  }
+
   render () {
     const tbody = this.props.users.map((user, index) => (
       <tr key={user.id}>
-        <td>{index + 1}</td>
         <td>{user.email}</td>
         <td>{user.display_name}</td>
         <td>{user.admin && <Label bsStyle='info'>Yes</Label>}</td>
@@ -135,7 +147,6 @@ class UserList extends Component {
         <Table responsive striped hover bordered>
           <thead>
             <StTableHeaderGroup currentSortField={this.props.sortField}>
-              <th>#</th>
               <StTableHeader header='Email' fieldName='email'
                 onClick={this.onTableHeaderClick.bind(this)} />
               <StTableHeader header='Display Name' fieldName='display_name'
@@ -151,7 +162,9 @@ class UserList extends Component {
             {tbody}
           </tbody>          
         </Table>
-        <StPagination pager={this.props.pager} />
+        <StPagination pager={this.props.pager}
+          onPageSelect={this.onPageSelect.bind(this)}
+          onPageSizeClick={this.onPageSizeClick.bind(this)} />
       </div>
     )
   }

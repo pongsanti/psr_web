@@ -7,6 +7,10 @@ const defaultState = {
     field: 'id',
     direction: 'asc'
   },
+  page: {
+    page: 1,
+    size: 10
+  },
   users: [],
   pager: {},
   curUser: null,
@@ -38,6 +42,20 @@ const reducer = handleActions({
     ...state,
     sort: action.payload
   }),
+  [ActionTypes.user_page_change]: (state, action) => ({
+    ...state,
+    page: {
+      ...state.page,
+      page: action.payload,
+    }
+  }),
+  [ActionTypes.user_page_size_change]: (state, action) => ({
+    ...state,
+    page: {
+      page: defaultState.page.page,
+      size: action.payload,
+    }
+  }),  
   [ActionTypes.user_get]: handleFetchStart,
   [ActionTypes.user_recv]: (state, action) => ({
     ...state,
