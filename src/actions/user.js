@@ -13,6 +13,7 @@ export const user_fail = createAction('USER_FAIL');
 export const user_header_click = createAction('USER_HEADER_CLICK');
 export const user_page_change = createAction('USER_PAGE_CHNG');
 export const user_page_size_change = createAction('USER_PAGE_SIZE_CHNG');
+export const user_search_change = createAction('USER_SEARCH_CHNG');
 
 export const user_new = createAction('USER_NEW');
 export const user_post = createAction('USER_POST');
@@ -25,10 +26,19 @@ export const user_edit = createAction('USER_EDIT');
 export const user_patch = createAction('USER_PATCH');
 export const user_patch_recv = createAction('USER_PATCH_RECV');
 
-const userGetUrl = (sortObj, pageObj) => {
+const userGetUrl = (sortObj, pageObj, searchObj) => {
   const {field, direction} = sortObj;
   const {page, size} = pageObj;
-  return `${config.URL}/api/users?order=${field}&direction=${direction}&page=${page}&size=${size}`;
+  
+  let url = `${config.URL}/api/users?order=${field}&direction=${direction}&page=${page}&size=${size}`;
+
+  // search
+  let email_search = searchObj.email || null
+  if (email_search) {
+    url = url + `&email=${email_search}`;
+  }
+
+  return url;
 }
 
 export const userGet = () => {
@@ -38,7 +48,7 @@ export const userGet = () => {
     dispatch(user_get());
     Noti.notiLoading();
 
-    return fetchPromise(userGetUrl(user.sort, user.page), fetchOption(fetchHeader(login.token), 'GET'))
+    return fetchPromise(userGetUrl(user.sort, user.page, user.search), fetchOption(fetchHeader(login.token), 'GET'))
     .then(json => {
       dispatch(user_recv(json))
       Noti.notiClear();

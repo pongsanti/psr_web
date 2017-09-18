@@ -101,7 +101,7 @@ class UserForm extends Component {
     const formSchema = getModelSchema(edit);
 
     return (
-      <Form className='login-form'
+      <Form
         schema={formSchema}
         defaultValue={formSchema.default()}
         value={this.state.user}

@@ -11,6 +11,7 @@ const defaultState = {
     page: 1,
     size: 10
   },
+  search: {},
   users: [],
   pager: {},
   curUser: null,
@@ -55,7 +56,11 @@ const reducer = handleActions({
       page: defaultState.page.page,
       size: action.payload,
     }
-  }),  
+  }),
+  [ActionTypes.user_search_change]: (state, action) => ({
+    ...state,
+    search: action.payload,
+  }),    
   [ActionTypes.user_get]: handleFetchStart,
   [ActionTypes.user_recv]: (state, action) => ({
     ...state,

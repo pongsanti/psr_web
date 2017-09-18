@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PageTitle from '../page_title';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
+import UserSearch from './user_search';
 import StPagination from '../st_pagination';
 import StTableHeader from '../st_table_header';
 import StTableHeaderGroup from '../st_table_header_group';
@@ -144,6 +145,7 @@ class UserList extends Component {
           onCloseClick={this.onDeleteConfirmClose.bind(this)} />
         {this.pageBar()}
         <PageTitle header='Users Management' />
+        <UserSearch />
         <Table responsive striped hover bordered>
           <thead>
             <StTableHeaderGroup currentSortField={this.props.sortField}>
