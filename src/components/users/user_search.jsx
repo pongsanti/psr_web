@@ -34,7 +34,9 @@ class UserSearch extends Component {
     });
   }
 
-  onSearchClick () {
+  onSubmit (event) {
+    event.preventDefault();
+
     const {dispatch} = this.props;
     dispatch(user_search_change(this.state));
     dispatch(userGet());
@@ -42,7 +44,7 @@ class UserSearch extends Component {
 
   form () {
     return (
-      <Form horizontal>
+      <Form horizontal onSubmit={this.onSubmit.bind(this)}>
         <FormGroup>
           <Col componentClass={ControlLabel} md={1} >Email</Col>
           <Col md={2}>
@@ -53,13 +55,11 @@ class UserSearch extends Component {
           </Col>
           <Col md={3}>
             <LaddaButton
-              type='button'
               className='btn green'
               loading={this.props.isFetching}
               data-style={EXPAND_LEFT}
               data-size={XS}
-              data-spinner-size={30}
-              onClick={this.onSearchClick.bind(this)}>Search</LaddaButton>          
+              data-spinner-size={30}>Search</LaddaButton>          
           </Col>
         </FormGroup>
       </Form>
