@@ -3,6 +3,12 @@ const Webpack = require('webpack');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
+  entry: {
+    app: [
+      'react-hot-loader/patch',
+      './src/index.js'
+    ]
+  },
   devtool: 'cheap-eval-source-map',
   devServer: {
     hot: true,

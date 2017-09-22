@@ -6,6 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom';
+import { AppContainer } from 'react-hot-loader';
 import App from './layouts/app';
 import configureStore from './store/configureStore'
 
@@ -19,24 +20,21 @@ document.body.appendChild(component());
 // store
 const store = configureStore()
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
-);
-
-if (module.hot) {
-  module.hot.accept('./layouts/app', () => {
-    ReactDOM.render(
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Component />
         </BrowserRouter>
-      </Provider>,
-      document.getElementById('root'),
-    )
-  })
+      </Provider>
+    </AppContainer>,
+    document.getElementById('root')
+  );
+}
+
+render(App);
+
+if (module.hot) {
+  module.hot.accept('./layouts/app', () => { render(App) });
 }

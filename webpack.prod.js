@@ -5,6 +5,9 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
+  entry: {
+    app: './src/index.js'
+  },
   devtool: 'source-map',
   plugins: [
     new MinifyPlugin(),

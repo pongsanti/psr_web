@@ -5,9 +5,6 @@ const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: {
-    app: './src/index.js'
-  },
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -18,7 +15,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: ['react-hot-loader/webpack', 'babel-loader']
       },
       
       {
