@@ -4,6 +4,8 @@ import Login from './login';
 import SmartTrack from './smart_track';
 import * as storage from './storage';
 
+import 'react-select/dist/react-select.css';
+
 class App extends Component {
   
   loggedInRoutes () {
