@@ -5,6 +5,7 @@ import { Button, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-b
 import LaddaButton, {XS, EXPAND_LEFT } from 'react-ladda';
 
 import {stationGet, userStationGet, userStationPatch} from '../../actions';
+import Noti from '../../layouts/noti'
 
 const mapStateToProps = state => {
   const {station, user_station} = state;
@@ -45,6 +46,10 @@ class Stations extends Component {
     return { value: station.id, label: station.name }
   }
 
+  patchPayload (option) {
+    return option.value
+  }
+
   onSelectChange (val) {
     this.setState({
       values: val
@@ -54,7 +59,10 @@ class Stations extends Component {
   onSubmit (event) {
     event.preventDefault();
 
-    console.log(this.state.values);
+    const {dispatch} = this.props
+    const payload = { stations: this.state.values.map(this.patchPayload) }
+    dispatch(userStationPatch(payload))
+    .then(() => Noti.notiSuccess('User stations updated'));
   }
 
   render () {

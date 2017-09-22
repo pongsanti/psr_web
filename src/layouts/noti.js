@@ -9,6 +9,15 @@ const notiObj = (title, message, level) => ({
   position: 'tc'
 })
 
+const notiSuccess = (message) => {
+  let opts = notiObj(ERROR_TITLE, message, 'success')
+  opts = {
+    ...opts,
+    title: 'Success'
+  }
+  st_noti.addNotification(opts);
+}
+
 const notiError = (message) => {
   st_noti.addNotification(notiObj(ERROR_TITLE, message, 'error'));
 }
@@ -24,4 +33,4 @@ const notiLoading = () => {
 
 const notiClear = () => { st_noti.clearNotifications(); }
 
-export default {notiError, notiLoading, notiClear};
+export default {notiError, notiLoading, notiClear, notiSuccess};
