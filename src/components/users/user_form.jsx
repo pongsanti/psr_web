@@ -5,6 +5,7 @@ import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'r
 import Form from 'react-formal';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
 import PageTitle from '../page_title';
+import Stations from './stations';
 import FormAlert from '../st_form_alert';
 import { userPost, userPatch } from '../../actions';
 import getModelSchema from './user_form_schema';
@@ -162,6 +163,11 @@ class UserForm extends Component {
         <div className='portlet light bordered'>
           {this.form()}
         </div>
+        { edit &&
+          <div className='portlet light bordered'>
+            <Stations />
+          </div>
+        }
       </div>
     )
   }
