@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
-import LaddaButton, {XS, EXPAND_LEFT } from 'react-ladda';
-
+import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda';
+import PageTitle from '../page_title';
 import {stationGet, userStationGet, userStationPatch, noti_add} from '../../actions';
 import Noti from '../../layouts/noti'
 
@@ -68,30 +68,29 @@ class Stations extends Component {
   render () {
     return (
       <div>
-        <Form horizontal onSubmit={this.onSubmit.bind(this)}>
-          <FormGroup>
-            <Col componentClass={ControlLabel} md={2} >User's stations</Col>
-            <Col md={10}>
-              <Select
+        <PageTitle header="Edit User's stations" subHeader='' />
+        <div className='portlet light bordered'>
+          <form onSubmit={this.onSubmit.bind(this)}>
+            <FormGroup>
+              <ControlLabel>Stations</ControlLabel>
+              <Select                
                 name="stations"
                 multi={true}
                 options={this.state.stations}
                 value={this.state.values}
                 onChange={this.onSelectChange.bind(this)}
               />
-            </Col>
-          </FormGroup>
-          <FormGroup>
-            <Col mdOffset={2} md={10}>
+            </FormGroup>
+            <FormGroup>
               <LaddaButton
                 className='btn green'
                 loading={this.props.isFetching}
                 data-style={EXPAND_LEFT}
-                data-size={XS}
+                data-size={S}
                 data-spinner-size={30}>Submit</LaddaButton>
-            </Col>
-          </FormGroup>
-        </Form>
+            </FormGroup>
+          </form>
+        </div>
       </div>
     )
   }

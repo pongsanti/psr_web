@@ -19,6 +19,7 @@ import PageHeaderInner from './page_header_inner'
 import PageSidebar from './page_sidebar'
 
 import UserList from '../components/users/user_list';
+import EditTab from '../components/users/edit_tab';
 import UserForm from '../components/users/user_form';
 import ChangePassword from '../components/users/change_password';
 import Dashboard from '../components/users/dashboard';
@@ -61,7 +62,8 @@ class SmartTrack extends Component {
                 <Route exact path='/dashboard' component={Dashboard} />
                 <Route exact path='/users/change_password' component={ChangePassword} />
                 {this.props.admin && <Route exact path='/users' component={UserList} /> }
-                {this.props.admin && <Route path='/users/:operation' component={UserForm} /> }
+                {this.props.admin && <Route path='/users/new' component={UserForm} /> }
+                {this.props.admin && <Route path='/users/edit' component={EditTab} /> }
               </Switch>
             </div>
           </div>

@@ -158,16 +158,11 @@ class UserForm extends Component {
     const edit = this.edit();
     return (
       <div>
-        {this.pageBar(edit)}
-        <PageTitle header={edit? 'Edit User' : 'New User'} subHeader='' />
+        {!edit && this.pageBar(edit)}
+        <PageTitle header={edit? 'Edit User Details' : 'New User'} subHeader='' />
         <div className='portlet light bordered'>
           {this.form()}
         </div>
-        { edit &&
-          <div className='portlet light bordered'>
-            <Stations />
-          </div>
-        }
       </div>
     )
   }
