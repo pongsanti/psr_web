@@ -4,7 +4,7 @@ import config from '../config'
 import { fetchHeader, fetchOption, postOption} from './helper';
 import * as st_storage from '../layouts/storage';
 import Noti from '../layouts/noti';
-import {noti_add, noti_reset} from './noti'
+import {noti_add} from './noti'
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');

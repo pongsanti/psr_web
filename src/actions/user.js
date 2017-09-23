@@ -5,6 +5,7 @@ import config from '../config'
 import { fetchHeader, fetchOption, postOption,
   patchOption,
   fetchPromise } from './helper';
+import {noti_add, noti_clear} from './noti';
 
 export const user_get = createAction('USER_GET');
 export const user_recv = createAction('USER_RECV');
@@ -46,18 +47,18 @@ export const userGet = () => {
     const {login, user} = getState();
 
     dispatch(user_get());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(userGetUrl(user.sort, user.page, user.search), fetchOption(fetchHeader(login.token), 'GET'))
     .then(json => {
       dispatch(user_recv(json))
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     });
   }
@@ -68,18 +69,18 @@ export const userPost = (postData) => {
     const {login} = getState();
 
     dispatch(user_post());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/users`, postOption(fetchHeader(login.token), JSON.stringify(postData)))
     .then(json => {
       dispatch(user_post_recv(json))
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return Promise.reject(error);
     });
   }
@@ -90,18 +91,18 @@ export const userDelete = (id) => {
     const {login} = getState();
 
     dispatch(user_del());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/users/${id}`, fetchOption(fetchHeader(login.token), 'DELETE'))
     .then(json => {
       dispatch(user_del_recv())
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     })
   }
@@ -113,18 +114,18 @@ export const userPatch = (patchData) => {
     const id = user.curUser.id
 
     dispatch(user_patch());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/users/${id}`, patchOption(fetchHeader(login.token), JSON.stringify(patchData)))
     .then(json => {
       dispatch(user_patch_recv())
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return Promise.reject(error);
     })
   }

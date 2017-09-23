@@ -4,6 +4,7 @@ import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption,
   fetchPromise } from './helper';
+  import { noti_add, noti_clear } from './noti';  
 
 export const station_get = createAction('STATION_GET');
 export const station_recv = createAction('STATION_RECV');
@@ -14,18 +15,18 @@ export const stationGet = () => {
     const {login} = getState();
 
     dispatch(station_get());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/stations`, fetchOption(fetchHeader(login.token), 'GET'))
     .then(json => {
       dispatch(station_recv(json))
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(station_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     });
   }

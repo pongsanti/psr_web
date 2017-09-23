@@ -4,6 +4,7 @@ import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, patchOption,
   fetchPromise } from './helper';
+  import { noti_add, noti_clear } from './noti';  
 
 export const user_station_get = createAction('USER_STATION_GET');
 export const user_station_recv = createAction('USER_STATION_RECV');
@@ -17,18 +18,18 @@ export const userStationGet = () => {
     const user_id = user.curUser.id
 
     dispatch(user_station_get());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/user_stations/${user_id}`, fetchOption(fetchHeader(login.token), 'GET'))
     .then(json => {
       dispatch(user_station_recv(json))
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_station_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     });
   }
@@ -40,19 +41,19 @@ export const userStationPatch = (payload) => {
     const user_id = user.curUser.id
 
     dispatch(user_station_patch());
-    Noti.notiLoading();
+    dispatch(noti_add(Noti.notiLoading()));
 
     return fetchPromise(`${config.URL}/api/user_stations/${user_id}`,
       patchOption(fetchHeader(login.token), JSON.stringify(payload)))
     .then(json => {
       dispatch(user_station_recv(json))
-      Noti.notiClear();
+      dispatch(noti_clear());
       return json;
     }, error => {
       const err_text = extract_string(error);
       dispatch(user_station_fail(err_text));
-      Noti.notiClear();
-      Noti.notiError(err_text);
+      dispatch(noti_clear());
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     });
   }
