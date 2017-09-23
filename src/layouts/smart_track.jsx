@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import NotificationSystem from 'react-notification-system';
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 // css
@@ -41,18 +40,13 @@ class SmartTrack extends Component {
     document.body.classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
   }
 
-  initNotificationObj (noti) {
-    global.st_noti = noti;
-  }
-
   componentWillReceiveProps(nextProps) {
-    
+      
   }  
 
   render () {
     return (
       <div className='page-wrapper'>
-        <NotificationSystem ref={this.initNotificationObj} />
         <div className='page-header navbar navbar-fixed-top'>
           <PageHeaderInner />
         </div>
@@ -67,8 +61,7 @@ class SmartTrack extends Component {
                 <Route exact path='/dashboard' component={Dashboard} />
                 <Route exact path='/users/change_password' component={ChangePassword} />
                 {this.props.admin && <Route exact path='/users' component={UserList} /> }
-                {this.props.admin && <Route exact path='/users/new' component={UserForm} /> }
-                {this.props.admin && <Route exact path='/users/edit' component={UserForm} /> }
+                {this.props.admin && <Route path='/users/:operation' component={UserForm} /> }
               </Switch>
             </div>
           </div>
