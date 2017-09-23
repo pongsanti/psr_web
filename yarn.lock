@@ -3767,6 +3767,12 @@ react-select@^1.0.0-rc.10:
     prop-types "^15.5.8"
     react-input-autosize "^2.0.1"
 
+react-toggle@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-toggle/-/react-toggle-4.0.1.tgz#0e83e8c94d94232debfa21a938ff3d2b2106ec72"
+  dependencies:
+    classnames "^2.2.5"
+
 react@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"

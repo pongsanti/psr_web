@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { ButtonGroup, Button, Alert, FormGroup, ControlLabel, Checkbox } from 'react-bootstrap';
 import Form from 'react-formal';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda'
+import Toggle from 'react-toggle';
 import PageTitle from '../page_title';
 import Stations from './stations';
 import FormAlert from '../st_form_alert';
@@ -139,10 +140,15 @@ class UserForm extends Component {
             </div>
           }
 
+          <br/>
           <FormGroup>
-            <Checkbox className='mt-checkbox'
-              checked={this.state.user.admin}
-              onChange={this.onAdminChange.bind(this)}>Admin</Checkbox>
+            <label>
+              <Toggle
+                id='cheese-status'
+                defaultChecked={this.state.user.admin}
+                onChange={this.onAdminChange.bind(this)} /> {'  '}
+              <span>Admin</span>
+            </label>
           </FormGroup>
         </div>
         <Form.Button type='submit' component={LaddaButton}
