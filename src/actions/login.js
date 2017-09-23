@@ -1,9 +1,10 @@
 import { createAction } from 'redux-actions';
-import Noti from '../layouts/noti'
 import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption} from './helper';
 import * as st_storage from '../layouts/storage';
+import Noti from '../layouts/noti';
+import {noti_add, noti_reset} from './noti'
 
 export const login_post = createAction('LOGIN_POST');
 export const login_recv = createAction('LOGIN_RECV');
@@ -60,7 +61,7 @@ export const loginPost = (loginData) => {
         error => {
           const err_text = extract_string(error);
           dispatch(login_fail(err_text));
-          Noti.notiError(err_text);
+          dispatch(noti_add(Noti.notiError(err_text)));
           return error;
         }
       )   
@@ -84,7 +85,7 @@ export const logoutDelete = () => {
       const err_text = extract_string(error);
       // remove flag in the storage
       st_storage.userLogout();
-      Noti.notiError(err_text);
+      dispatch(noti_add(Noti.notiError(err_text)));
       return error;
     });
   }

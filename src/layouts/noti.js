@@ -15,12 +15,10 @@ const notiSuccess = (message) => {
     ...opts,
     title: 'Success'
   }
-  st_noti.addNotification(opts);
+  return opts;
 }
 
-const notiError = (message) => {
-  st_noti.addNotification(notiObj(ERROR_TITLE, message, 'error'));
-}
+const notiError = (message) => (notiObj(ERROR_TITLE, message, 'error'))
 
 const notiLoading = () => {
   let notiOpts = notiObj(LOADING_TITLE, LOADING_MSG, 'info');
@@ -28,9 +26,7 @@ const notiLoading = () => {
     ...notiOpts,
     autoDismiss: false
   }
-  st_noti.addNotification(notiOpts);
+  return notiOpts;
 }
 
-const notiClear = () => { st_noti.clearNotifications(); }
-
-export default {notiError, notiLoading, notiClear, notiSuccess};
+export default {notiError, notiLoading, notiSuccess}

@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Alert } from 'react-bootstrap';
-import NotificationSystem from 'react-notification-system';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import { loginPost } from '../actions'
+import { withRouter } from 'react-router-dom';
+import { loginPost, noti_reset } from '../actions'
 
 // import SweetAlert from 'sweetalert-react';
 import LaddaButton, {L, EXPAND_LEFT } from 'react-ladda'
@@ -34,11 +33,11 @@ var modelSchema = yup.object({
 });
 
 const mapStateToProps = state => {
-  const {noti, login} = state;
+  const {login} = state;
   return {
     isFetching: login.isFetching,
     user: login.user,
-    error: login.error
+    error: login.error,
   }
 }
 
@@ -61,11 +60,9 @@ class Login extends Component {
     document.body.className = 'login';
   }
 
-  initNotificationObj (noti) {
-    global.st_noti = noti;
-  }
-
   componentWillReceiveProps(nextProps) {
+    const {dispatch} = this.props
+
     this.setState({
       ...this.state,
       showError: nextProps.error != null
@@ -118,7 +115,6 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <NotificationSystem ref={this.initNotificationObj} />
         <div className='logo'>
           <img src={LOGO_IMG} />
         </div>       
