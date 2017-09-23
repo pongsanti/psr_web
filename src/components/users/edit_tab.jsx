@@ -40,7 +40,8 @@ class EditTab extends Component {
         <Tabs activeKey={this.state.key}
           id='user_detail_tab'
           onSelect={this.handleSelect.bind(this)}
-          mountOnEnter={true}>
+          mountOnEnter={true}
+          unmountOnExit={true}>
           <Tab eventKey={1} title='Details'><UserForm /></Tab>
           <Tab eventKey={2} title='Stations'><Stations /></Tab>
           <Tab eventKey={3} title='Trucks'>Tab 3 content</Tab>        
