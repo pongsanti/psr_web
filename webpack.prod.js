@@ -2,6 +2,7 @@ const merge = require('webpack-merge');
 const Webpack = require('webpack');
 //const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const MinifyPlugin = require("babel-minify-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
@@ -10,6 +11,7 @@ module.exports = merge(common, {
   },
   devtool: 'source-map',
   plugins: [
+    new CleanWebpackPlugin(['dist']),
     new MinifyPlugin(),
     new Webpack.DefinePlugin({
       'process.env': {

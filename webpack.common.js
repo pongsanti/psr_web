@@ -1,8 +1,7 @@
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 module.exports = {
   output: {
@@ -40,7 +39,6 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('[name].[id].[contenthash].css'),
-    new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'SmartTrack'
     }),
