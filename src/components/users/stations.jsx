@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
 import LaddaButton, {XS, EXPAND_LEFT } from 'react-ladda';
 
-import {stationGet, userStationGet, userStationPatch} from '../../actions';
+import {stationGet, userStationGet, userStationPatch, noti_add} from '../../actions';
 import Noti from '../../layouts/noti'
 
 const mapStateToProps = state => {
@@ -62,7 +62,7 @@ class Stations extends Component {
     const {dispatch} = this.props
     const payload = { stations: this.state.values.map(this.patchPayload) }
     dispatch(userStationPatch(payload))
-    .then(() => Noti.notiSuccess('User stations updated'));
+    .then(() => dispatch(noti_add(Noti.notiSuccess('User stations updated'))));
   }
 
   render () {
