@@ -5,6 +5,8 @@ import user from './user';
 import change_password from './change_password';
 import station from './station';
 import user_station from './user_station';
+import truck from './truck';
+import user_truck from './user_truck';
 
 const rootReducer = combineReducers({
   noti,
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   change_password,
   station,
   user_station,
+  truck,
+  user_truck,
 });
 
 export default rootReducer;

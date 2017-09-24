@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Tabs, Tab } from 'react-bootstrap';
 import UserForm from './user_form';
 import Stations from './stations';
+import Trucks from './trucks';
 
 class EditTab extends Component {
   constructor (props) {
@@ -44,7 +45,7 @@ class EditTab extends Component {
           unmountOnExit={true}>
           <Tab eventKey={1} title='Details'><UserForm /></Tab>
           <Tab eventKey={2} title='Stations'><Stations /></Tab>
-          <Tab eventKey={3} title='Trucks'>Tab 3 content</Tab>        
+          <Tab eventKey={3} title='Trucks'><Trucks /></Tab>        
         </Tabs>
       </div>
     )
