@@ -10,6 +10,7 @@ import {noti_reset} from '../actions';
 
 import 'react-select/dist/react-select.css';
 import 'react-toggle/style.css';
+import 'react-datetime/css/react-datetime.css';
 
 const mapStateToProps = state => {
   const {noti} = state;
