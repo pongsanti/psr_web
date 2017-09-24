@@ -36,9 +36,16 @@ class UserSearch extends Component {
 
   onSubmit (event) {
     event.preventDefault();
+    this.search(this.state);
+  }
 
+  onClearClick () {
+    this.search({email: ''});
+  }
+
+  search (searchObj) {
     const {dispatch} = this.props;
-    dispatch(user_search_change(this.state));
+    dispatch(user_search_change(searchObj));
     dispatch(userGet());
   }
 
@@ -59,7 +66,15 @@ class UserSearch extends Component {
               loading={this.props.isFetching}
               data-style={EXPAND_LEFT}
               data-size={XS}
-              data-spinner-size={30}>Search</LaddaButton>          
+              data-spinner-size={30}>Search</LaddaButton>
+            <LaddaButton
+              type='button'
+              className='btn'
+              loading={this.props.isFetching}
+              data-style={EXPAND_LEFT}
+              data-size={XS}
+              data-spinner-size={30}
+              onClick={this.onClearClick.bind(this)}>Clear</LaddaButton>              
           </Col>
         </FormGroup>
       </Form>
