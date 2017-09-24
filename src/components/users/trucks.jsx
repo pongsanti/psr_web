@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import PageTitle from '../page_title';
+import UserTruckForm from './user_truck_form';
 import {userTruckGet} from '../../actions';
 
 const mapStateToProps = state => {
@@ -45,6 +46,7 @@ class Trucks extends Component {
     return (
       <div>
       <PageTitle header="Edit User's trucks" subHeader='' />
+      <UserTruckForm />
       <Table responsive striped hover bordered>
         <thead>
           <tr>
