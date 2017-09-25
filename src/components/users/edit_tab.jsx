@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Tabs, Tab } from 'react-bootstrap';
 import UserForm from './user_form';
 import Stations from './stations';
 import Trucks from './trucks';
+
+const mapStateToProps = state => {
+  const {user} = state;
+  return {
+    curUser: user.curUser
+  }
+}
 
 class EditTab extends Component {
   constructor (props) {
@@ -19,6 +27,7 @@ class EditTab extends Component {
   }
 
   pageBar () {
+    const {curUser} = this.props;
     return (
       <div className='page-bar'>
         <ul className="page-breadcrumb">
@@ -27,7 +36,9 @@ class EditTab extends Component {
             <i className="fa fa-circle"></i>
           </li>
           <li>
-            <span>Edit User</span>
+            { curUser &&
+              <span>Edit User - {curUser.display_name} ({curUser.email})</span>
+            }
           </li>
         </ul>
       </div>
@@ -52,4 +63,4 @@ class EditTab extends Component {
   }
 }
 
-export default EditTab;
+export default withRouter(connect(mapStateToProps)(EditTab));
