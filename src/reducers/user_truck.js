@@ -16,12 +16,18 @@ const handleFetch = (state, action) => ({
 const reducer = handleActions({
   [ActionTypes.user_truck_get]: handleFetch,
   [ActionTypes.user_truck_post]: handleFetch,
+  [ActionTypes.user_truck_del]: handleFetch,
   [ActionTypes.user_truck_recv]: (state, action) => ({
     ...state,
     isFetching: false,
     trucks: action.payload.trucks,
     error: null
   }),
+  [ActionTypes.user_truck_del_recv]: (state, action) => ({
+    ...state,
+    isFetching: false,
+    error: null
+  }),  
   [ActionTypes.user_truck_fail]: (state, action) => ({
     ...state,
     isFetching: false,

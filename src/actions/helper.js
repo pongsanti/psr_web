@@ -1,5 +1,6 @@
 const POST = 'POST';
 const PATCH = 'PATCH';
+const DELETE = 'DELETE';
 
 export const fetchOption = (headers, method='POST', body=null) => {
   const opt = {headers, method}
@@ -29,6 +30,11 @@ export const patchOption = (headers, body) => ({
   method: PATCH,
   body
 });
+
+export const deleteOption = (headers) => ({
+  headers,
+  method: DELETE
+})
 
 export const fetchResponseResolve = (response) => {
   const json = response.json();

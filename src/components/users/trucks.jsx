@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Table, Button, ButtonGroup, Label } from 'react-bootstrap';
 import PageTitle from '../page_title';
 import UserTruckForm from './user_truck_form';
-import {userTruckGet} from '../../actions';
+import {userTruckGet, userTruckDelete} from '../../actions';
 
 const mapStateToProps = state => {
   const {user_truck} = state;
@@ -24,7 +24,9 @@ class Trucks extends Component {
   }
 
   onDeleteClick (id) {
-
+    const {dispatch} = this.props;
+    dispatch(userTruckDelete(id))
+    .then(() => this.getUserTrucks());
   }
 
   render () {
