@@ -61,6 +61,14 @@ export const userTruckPost = (postData) => {
   }
 }
 
+const fetchErrorMessageHandler = (dispatch, action, error) => {
+  const err_text = extract_string(error);
+  dispatch(action(err_text));
+  dispatch(noti_clear());
+  dispatch(noti_add(Noti.notiError(err_text)));
+  return Promise.reject(error);
+}
+
 export const userTruckDelete = (user_truck_id) => {
   return (dispatch, getState) => {
     const {login} = getState();
@@ -73,12 +81,7 @@ export const userTruckDelete = (user_truck_id) => {
       dispatch(user_truck_del_recv(json))
       dispatch(noti_clear());
       return json;
-    }, error => {
-      const err_text = extract_string(error);
-      dispatch(user_truck_fail(err_text));
-      dispatch(noti_clear());
-      dispatch(noti_add(Noti.notiError(err_text)));
-      return error;
-    });
+    }, fetchErrorMessageHandler.bind(this, dispatch, user_truck_fail)
+    );
   }
 }
