@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Button, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda';
 import PageTitle from '../page_title';
-import {stationGet, userStationGet, userStationPatch, noti_add} from '../../actions';
+import {stationGet, userStationGet, userStationPatch,
+  noti_add, user_station_reset} from '../../actions';
 import Noti from '../../layouts/noti'
 
 const mapStateToProps = state => {
@@ -31,6 +32,10 @@ class Stations extends Component {
     const {dispatch} = this.props
     dispatch(stationGet())
     .then(() => dispatch(userStationGet()))
+  }
+
+  componentWillUnmount () {
+    this.props.dispatch(user_station_reset());
   }
 
   componentWillReceiveProps (nextProps) {

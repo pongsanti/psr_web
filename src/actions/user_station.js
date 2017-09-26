@@ -12,6 +12,8 @@ export const user_station_fail = createAction('USER_STATION_FAIL');
 
 export const user_station_patch = createAction('USER_STATION_PATCH');
 
+export const user_station_reset = createAction('USER_STATION_RESET');
+
 export const userStationGet = () => {
   return (dispatch, getState) => {
     const {login, user} = getState();

@@ -27,6 +27,7 @@ const reducer = handleActions({
     isFetching: false,
     error: action.payload
   }),
+  [ActionTypes.user_station_reset]: (state, action) => (defaultState),
 }, defaultState);
 
 export default reducer;
