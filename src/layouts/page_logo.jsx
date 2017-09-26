@@ -8,9 +8,9 @@ class PageLogo extends Component {
         <a href='javascript:;'>
           <img src={LOGO_IMG} className='logo-default'/>
         </a>
-        <div className='menu-toggler sidebar-toggler'>
+        {/* <div className='menu-toggler sidebar-toggler'>
           <span></span>
-        </div>        
+        </div>         */}
       </div>
     )  
   }

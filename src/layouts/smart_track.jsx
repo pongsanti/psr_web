@@ -16,7 +16,7 @@ import '../assets/layouts/layout/css/themes/darkblue.css';
 import '../assets/layouts/layout/css/custom.css';
 
 import PageHeaderInner from './page_header_inner'
-import PageSidebar from './page_sidebar'
+// import PageSidebar from './page_sidebar'
 
 import UserList from '../components/users/user_list';
 import EditTab from '../components/users/edit_tab';
@@ -38,7 +38,10 @@ class SmartTrack extends Component {
 
   componentWillMount () {
     document.body.className = '';
-    document.body.classList.add('page-header-fixed', 'page-sidebar-closed-hide-logo', 'page-content-white');
+    document.body.classList.add('page-header-fixed',
+      'page-sidebar-closed-hide-logo',
+      'page-content-white',
+      'page-full-width');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,9 +56,9 @@ class SmartTrack extends Component {
         </div>
         <div className='clearfix'></div>
         <div className='page-container'>
-          <div className='page-sidebar-wrapper'>
+          {/* <div className='page-sidebar-wrapper'>
             <PageSidebar />
-          </div>
+          </div> */}
           <div className='page-content-wrapper'>
             <div className='page-content'>
               <Switch>

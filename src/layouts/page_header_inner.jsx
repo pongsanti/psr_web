@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
@@ -37,9 +38,19 @@ class PageHeaderInner extends Component {
     return (
       <div className='page-header-inner'>
         <PageLogo />
-        <a href='javascript:;' className='menu-toggler responsive-toggler' data-toggle='collapse' data-target='.navbar-collapse'>
+        {/* <a href='javascript:;' className='menu-toggler responsive-toggler' data-toggle='collapse' data-target='.navbar-collapse'>
           <span></span>
-        </a>
+        </a> */}
+        <div className='hor-menu hidden-sm hidden-xs'>
+          <Nav className='navbar-nav'>
+            <LinkContainer to='/dashboard' exact>
+              <NavItem eventKey={1}>Dashboard <span className='selected'></span></NavItem>
+            </LinkContainer>
+            <LinkContainer to='/users' className='classic-menu-dropdown'>
+              <NavItem eventKey={2}>Users <span className='selected'></span></NavItem>
+            </LinkContainer>
+          </Nav>
+        </div>
         <div className='top-menu'>
           <Nav pullRight navbar className='pull-right'>
             <NavDropdown eventKey={3}
