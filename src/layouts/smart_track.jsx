@@ -22,7 +22,7 @@ import UserList from '../components/users/user_list';
 import EditTab from '../components/users/edit_tab';
 import UserForm from '../components/users/user_form';
 import ChangePassword from '../components/users/change_password';
-import Dashboard from '../components/users/dashboard';
+import Dashboard from '../components/dashboard/dashboard';
 
 const mapStateToProps = state => {
   const {login} = state;

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem, Grid, Row, Col} from 'react-bootstrap';
 import PageTitle from '../page_title';
-import Map from '../maps/map';
+import Map from './map';
+import TruckList from './truck_list';
 
 class Dashboard extends Component {
   render () {
@@ -14,11 +15,7 @@ class Dashboard extends Component {
               <Map />
             </Col>
             <Col md={3}>
-              <ListGroup>
-                <ListGroupItem href='#'>Item 1</ListGroupItem>
-                <ListGroupItem href='#'>Item 2</ListGroupItem>
-                <ListGroupItem href='#'>...</ListGroupItem>
-              </ListGroup>
+              <TruckList />
             </Col>
           </Row>
         </Grid>
