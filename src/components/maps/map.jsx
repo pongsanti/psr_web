@@ -11,11 +11,10 @@ class Map extends Component {
   render () {
     return (
       <div className='portlet light bordered'
-        style={{width: '80%', height: '768px'}}>
+        style={{width: '100%', height: '768px'}}>
         <GoogleMapReact
           defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
+          defaultZoom={this.props.zoom} >
           <AnyReactComponent
             lat={13.736717}
             lng={100.523186}
