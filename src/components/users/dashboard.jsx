@@ -8,7 +8,7 @@ class Dashboard extends Component {
     return (
       <div>
         <PageTitle header='Dashboard' />
-        <Grid>
+        <Grid fluid>
           <Row>
             <Col md={9} style={{padding: 0}}>
               <Map />
