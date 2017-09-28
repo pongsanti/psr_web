@@ -7,6 +7,7 @@ import station from './station';
 import user_station from './user_station';
 import truck from './truck';
 import user_truck from './user_truck';
+import location from './location';
 
 const rootReducer = combineReducers({
   noti,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user_station,
   truck,
   user_truck,
+  location,
 });
 
 export default rootReducer;

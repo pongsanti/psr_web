@@ -4,7 +4,7 @@ import { extract_string } from '../helpers/error';
 import config from '../config'
 import { fetchHeader, fetchOption, postOption, deleteOption,
   fetchPromise } from './helper';
-  import { noti_add, noti_clear } from './noti';  
+import { noti_add, noti_clear } from './noti';  
 
 export const user_truck_get = createAction('USER_TRUCK_GET');
 export const user_truck_recv = createAction('USER_TRUCK_RECV');
