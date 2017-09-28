@@ -10,7 +10,7 @@ class Dashboard extends Component {
         <PageTitle header='Dashboard' />
         <Grid>
           <Row>
-            <Col md={9}>
+            <Col md={9} style={{padding: 0}}>
               <Map />
             </Col>
             <Col md={3}>
