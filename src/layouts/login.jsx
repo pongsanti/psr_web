@@ -117,7 +117,7 @@ class Login extends Component {
         <div className='row bs-reset'>
           <div className='col-md-6 bs-reset mt-login-5-bsfix'>
             <div className='login-bg' >
-              <img className='login-logo' />
+              <img className='login-logo' src={LOGO_IMG} />
             </div>
           </div>
           <div className='col-md-6 login-container bs-reset mt-login-5-bsfix'>
