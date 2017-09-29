@@ -42,6 +42,7 @@ class SmartTrack extends Component {
       'page-sidebar-closed-hide-logo',
       'page-content-white',
       'page-full-width');
+    document.body.removeAttribute('style');
   }
 
   componentWillReceiveProps(nextProps) {

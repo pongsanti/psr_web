@@ -20,9 +20,7 @@ import '../assets/global/plugins/ladda/ladda.min.css';
 import '../assets/global/css/components.css';
 import '../assets/global/css/plugins.css';
 
-import '../assets/pages/css/login.css';
-
-import 'sweetalert/dist/sweetalert.css';
+import '../assets/pages/css/login-5.css';
 
 import LOGO_IMG from '../assets/images/logo.png';
 
@@ -58,6 +56,7 @@ class Login extends Component {
   componentWillMount () {
     document.body.className = '';
     document.body.className = 'login';
+    document.body.style.backgroundColor = '#fff';
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,17 +91,17 @@ class Login extends Component {
         onChange={this.onFormChange.bind(this)}
         onSubmit={this.onSubmit.bind(this)} >
         <div>
+          <FormAlert field={['email', 'password']} />
+        </div>
+        <div>
           <div className='form-group'>
-            <label className='control-label visible-ie8 visible-ie9'>Email</label>
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               name='email' placeholder='Email' />
           </div>
           <div className='form-group'>
-            <label className='control-label visible-ie8 visible-ie9'>Password</label>
             <Form.Field className='form-control form-control-solid placeholder-no-fix'
               type='password' name='password' placeholder='Password' />
           </div>
-          <FormAlert field={['email', 'password']} />
         </div>
         <Form.Button type='submit' component={LaddaButton}
           className='btn green uppercase'
@@ -114,46 +113,49 @@ class Login extends Component {
 
   render () {
     return (
-      <div>
-        <div className='logo'>
-          <img src={LOGO_IMG} />
-        </div>       
-        <div className='content'>
-          <h3 className='form-title font-green'>Smart Track</h3>
-          {this.form()}
-          {/* <div className='alert alert-danger display-hide'>
-            <button className='close' data-close='alert'></button>
-            <span> Enter any email and password. </span>
-          </div> */}
-            {/* <label className='rememberme check mt-checkbox mt-checkbox-outline'>
-                <input type='checkbox' name='remember' value='1' />Remember
-                <span></span>
-            </label> */}
-            {/* <a href='javascript:;' id='forget-password' className='forget-password'>Forgot Password?</a> */}
-          {/* <div className='login-options'>
-            <h4>Or login with</h4>
-            <ul className='social-icons'>
-              <li>
-              <a className='social-icon-color facebook' data-original-title='facebook' href='javascript:;'></a>
-              </li>
-              <li>
-                <a className='social-icon-color twitter' data-original-title='Twitter' href='javascript:;'></a>
-              </li>
-              <li>
-                <a className='social-icon-color googleplus' data-original-title='Goole Plus' href='javascript:;'></a>
-              </li>
-              <li>
-                <a className='social-icon-color linkedin' data-original-title='Linkedin' href='javascript:;'></a>
-              </li>
-            </ul>
-          </div> */}
-          {/* <div className='create-account'>
-            <p>
-                <a href='javascript:;' id='register-btn' className='uppercase'>Create an account</a>
-            </p>
-          </div> */}
+      <div className='user-login-5'>
+        <div className='row bs-reset'>
+          <div className='col-md-6 bs-reset mt-login-5-bsfix'>
+            <div className='login-bg' >
+              <img className='login-logo' />
+            </div>
+          </div>
+          <div className='col-md-6 login-container bs-reset mt-login-5-bsfix'>
+            <div className='login-content'>
+              <h1>Smart Track</h1>
+              <p> Lorem ipsum dolor sit amet, coectetuer adipiscing elit sed diam nonummy et nibh euismod aliquam erat volutpat. Lorem ipsum dolor sit amet, coectetuer adipiscing. </p>
+              {this.form()}
+            </div>
+            <div className='login-footer'>
+              <div className='row bs-reset'>
+                <div className='col-xs-4 bs-reset'>
+                  <ul className='login-social'>
+                    <li>
+                      <a href='javascript:;'>
+                        <i className='icon-social-facebook'></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href='javascript:;'>
+                        <i className='icon-social-twitter'></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a href='javascript:;'>
+                        <i className='icon-social-dribbble'></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className='col-xs-8 bs-reset'>
+                  <div className='login-copyright text-right'>
+                    <p>Copyright &copy; 2017 © Hatyai Pongsiri Forwarding Co.,LTD.</p>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
         </div>
-        <div className='copyright'> 2017 © Hatyai Pongsiri Forwarding Co.,LTD. </div>
       </div>
     )
   }
