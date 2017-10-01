@@ -23,7 +23,7 @@ export const userTruckGet = () => {
     dispatch(user_truck_get());
     dispatch(noti_add(Noti.notiLoading()));
 
-    return fetchPromise(`${config.URL}/api/user_trucks/${user_id}`, fetchOption(fetchHeader(login.token), 'GET'))
+    return fetchPromise(`${config.URL}/api/user_trucks/user/${user_id}`, fetchOption(fetchHeader(login.token), 'GET'))
     .then(json => {
       dispatch(user_truck_recv(json))
       dispatch(noti_clear());
