@@ -7,13 +7,13 @@ class TruckList extends Component {
     super(props)
 
     this.state = {
-      active_serial_sim: null
+      active_user_truck_id: null
     }
   }
 
   onItemClick (loc) {
     this.setState({
-      active_serial_sim: loc.serial_sim
+      active_user_truck_id: loc.user_truck_id
     })
 
     if (this.props.onItemClick) {
@@ -25,10 +25,10 @@ class TruckList extends Component {
     return (
       <ListGroupItem 
         href='#'
-        key={location.serial_sim}
+        key={location.user_truck_id}
         header={<h2>{location.license_plate}</h2>}
         onClick={this.onItemClick.bind(this, location)}
-        active={location.serial_sim === this.state.active_serial_sim}>
+        active={location.user_truck_id === this.state.active_user_truck_id}>
         <span>{location.brand} {location.color}</span> <br/>
         <span>Last updated: {location.datetime}</span>
       </ListGroupItem>);
