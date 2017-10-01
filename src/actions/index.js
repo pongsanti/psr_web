@@ -7,3 +7,4 @@ export * from './user_station';
 export * from './truck';
 export * from './user_truck';
 export * from './location';
+export * from './user_truck_station';
