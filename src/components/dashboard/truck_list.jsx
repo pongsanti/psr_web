@@ -33,9 +33,14 @@ class TruckList extends Component {
     }
   }
 
+  itemStyle (loc) {
+    return loc.datetime ? '' : 'warning';
+  }
+
   item (location) {
     return (
-      <ListGroupItem 
+      <ListGroupItem
+        bsStyle={this.itemStyle(location)}
         href='#'
         key={location.user_truck_id}
         header={<h2>{location.license_plate}</h2>}
