@@ -21,6 +21,18 @@ class TruckList extends Component {
     }
   }
 
+  onEnterItem(loc) {
+    if (this.props.onItemMouseEnter) {
+      this.props.onItemMouseEnter(loc);
+    }
+  }
+
+  onLeaveItem(loc) {
+    if (this.props.onItemMouseLeave) {
+      this.props.onItemMouseLeave(loc);
+    }
+  }
+
   item (location) {
     return (
       <ListGroupItem 
@@ -28,9 +40,11 @@ class TruckList extends Component {
         key={location.user_truck_id}
         header={<h2>{location.license_plate}</h2>}
         onClick={this.onItemClick.bind(this, location)}
+        onMouseEnter={this.onEnterItem.bind(this, location)}
+        onMouseLeave={this.onLeaveItem.bind(this, location)}
         active={location.user_truck_id === this.state.active_user_truck_id}>
         <span>{location.brand} {location.color}</span> <br/>
-        <span>Last updated: {location.datetime}</span>
+        <span>Last updated: {location.datetime || 'N/A'}</span>
       </ListGroupItem>);
   }
 
@@ -53,6 +67,8 @@ class TruckList extends Component {
 TruckList.propTypes = {
   locations: PropTypes.array,
   onItemClick: PropTypes.func,
+  onItemMouseEnter: PropTypes.func,
+  onItemMouseLeave: PropTypes.func,  
 }
 
 export default TruckList;

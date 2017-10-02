@@ -21,6 +21,7 @@ class Dashboard extends Component {
 
     this.state = {
       location: null,
+      mouse_hover_location: null,
     }
   }
 
@@ -34,6 +35,18 @@ class Dashboard extends Component {
     })
   }
 
+  onTruckMouseEnter (location) {
+    this.setState({
+      mouse_hover_location: location
+    })
+  }
+
+  onTruckMouseLeave () {
+    this.setState({
+      mouse_hover_location: null
+    })
+  }
+
   render () {
     const user_truck_id = this.state.location ? this.state.location.user_truck_id : null;
 
@@ -43,7 +56,8 @@ class Dashboard extends Component {
         <Grid fluid>
           <Row>
             <Col md={6} style={{padding: 0}}>
-              <Map location={this.state.location} />
+              <Map locations={this.props.locations} 
+                hoverLocation={this.state.mouse_hover_location} />
             </Col>
             <Col md={3}>
               <UserTruckStation user_truck_id={user_truck_id} />
@@ -51,7 +65,9 @@ class Dashboard extends Component {
             <Col md={3}>
               <TruckList
                 locations={this.props.locations}
-                onItemClick={this.onTruckItemClick.bind(this)} />
+                onItemClick={this.onTruckItemClick.bind(this)} 
+                onItemMouseEnter={this.onTruckMouseEnter.bind(this)}
+                onItemMouseLeave={this.onTruckMouseLeave.bind(this)}/>
             </Col>
           </Row>
         </Grid>

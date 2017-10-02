@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import PropTypes from 'prop-types';
 
-const AnyReactComponent = ({ comp }) => <div>{comp}</div>;
+const Marker = ({ comp }) => <div>{comp}</div>;
 
 class Map extends Component {
   constructor (props) {
@@ -25,8 +25,33 @@ class Map extends Component {
     }
   }
 
+  markers (locations) {
+    return locations.map(loc => this.marker(loc));
+  }
+
+  iconSize (loc) {
+    const {hoverLocation} = this.props;
+    return (hoverLocation 
+      && loc.user_truck_id === this.props.hoverLocation.user_truck_id) ? 'fa-4x' : 'fa-3x';
+  }
+
+  marker (location) {
+    const iconClass = 'fa fa-map-marker'
+    const iconSize = this.iconSize(location);
+    const className = `${iconClass} ${iconSize}`
+    return (
+      <Marker
+        key={location.user_truck_id}
+        lat={location.latitude}
+        lng={location.longitude}
+        comp={<i className={className}
+          style={{color: 'red'}} />}
+      />
+    )
+  }
+
   render () {
-    const {location} = this.props
+    const {locations} = this.props
     return (
       <div className='portlet light bordered'
         style={{width: '100%', height: '768px'}}>
@@ -36,14 +61,7 @@ class Map extends Component {
           center={this.state.center}
           zoom={this.state.zoom}
         >
-          { location &&
-            <AnyReactComponent
-              lat={location.latitude}
-              lng={location.longitude}
-              comp={<i className='fa fa-map-marker fa-3x'
-                style={{color: 'red'}} />}
-            />
-          }
+          {this.markers(locations)}
         </GoogleMapReact>
       </div>
     )
@@ -56,7 +74,8 @@ Map.defaultProps = {
 }
 
 Map.propTypes = {
-  location: PropTypes.object
+  locations: PropTypes.arrayOf(PropTypes.object),
+  hoverLocation: PropTypes.object,
 }
 
 export default Map;
