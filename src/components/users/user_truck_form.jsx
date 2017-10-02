@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Select from 'react-select';
 import DatePicker from 'react-datetime';
 import Form from 'react-formal';
-import { Button, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Col, Row } from 'react-bootstrap';
 import LaddaButton, {S, EXPAND_LEFT } from 'react-ladda';
 import FormAlert from '../st_form_alert';
 import {truckGet, userTruckPost} from '../../actions';
@@ -91,28 +91,35 @@ class UserTruckForm extends Component {
               type={Select}
               name='truck_id'
               options={this.state.trucks}
+              clearable={false}
               mapFromValue={this.mapFieldOptionToFormValue.bind(this)} />
           </FormGroup>
-          <FormGroup>
-            <ControlLabel>Start at</ControlLabel>
-            {this.formMessage('start_at')}
-            <Form.Field
-              type={DatePicker}
-              name='start_at'
-              timeFormat='HH:mm:ss'
-              alsoValidates='end_at'
-            />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>End at</ControlLabel>
-            {this.formMessage('end_at')}
-            <Form.Field
-              type={DatePicker}
-              name='end_at'
-              timeFormat='HH:mm:ss'
-              alsoValidates='start_at'
-            />
-          </FormGroup>
+          <Row>
+            <Col md={6}>
+              <FormGroup>
+                <ControlLabel>Start at</ControlLabel>
+                {this.formMessage('start_at')}
+                <Form.Field
+                  type={DatePicker}
+                  name='start_at'
+                  timeFormat='HH:mm:ss'
+                  alsoValidates='end_at'
+                />
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <ControlLabel>End at</ControlLabel>
+                {this.formMessage('end_at')}
+                <Form.Field
+                  type={DatePicker}
+                  name='end_at'
+                  timeFormat='HH:mm:ss'
+                  alsoValidates='start_at'
+                />
+              </FormGroup>
+            </Col>
+          </Row>
           <FormGroup>
             <Form.Button
               type='submit'
