@@ -23,6 +23,12 @@ import '../assets/global/css/plugins.css';
 import '../assets/pages/css/login-5.css';
 
 import LOGO_IMG from '../assets/images/logo.png';
+import BG01_IMG from '../assets/images/bg1.jpg';
+import BG02_IMG from '../assets/images/bg2.jpg';
+import BG03_IMG from '../assets/images/bg3.jpg';
+
+const BGs = [BG01_IMG, BG02_IMG, BG03_IMG];
+const BG_change_interval = 5000;
 
 var defaultStr = yup.string().default('')
 var modelSchema = yup.object({
@@ -46,6 +52,7 @@ class Login extends Component {
     const {user} = props
     // Notification
     this.state = {
+      bg_img_index: 0,
       showError: false,
       user: {
         email: user.email 
@@ -57,6 +64,25 @@ class Login extends Component {
     document.body.className = '';
     document.body.className = 'login';
     document.body.style.backgroundColor = '#fff';
+  }
+  
+  componentDidMount () {
+    this.intervalId = setInterval(this.changeBackgroundImage.bind(this), BG_change_interval);
+  }
+
+  changeBackgroundImage () {
+    this.setState({
+      bg_img_index: this.nextBGIndex()
+    })
+  }
+
+  nextBGIndex () {
+    const nextIndex = this.state.bg_img_index + 1;
+    return (nextIndex === BGs.length) ? 0 : nextIndex;
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.intervalId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,11 +138,16 @@ class Login extends Component {
   }
 
   render () {
+    const login_bg_style = {
+      backgroundImage: `url(${BGs[this.state.bg_img_index]})`,
+      transition: 'background 1s linear'
+    }
+
     return (
       <div className='user-login-5'>
         <div className='row bs-reset'>
           <div className='col-md-6 bs-reset mt-login-5-bsfix'>
-            <div className='login-bg' >
+            <div className='login-bg' style={login_bg_style} >
               <img className='login-logo' src={LOGO_IMG} />
             </div>
           </div>
