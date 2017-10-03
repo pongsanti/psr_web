@@ -95,7 +95,7 @@ class UserTruckForm extends Component {
               mapFromValue={this.mapFieldOptionToFormValue.bind(this)} />
           </FormGroup>
           <Row>
-            <Col md={6}>
+            <Col sm={6} md={6}>
               <FormGroup>
                 <ControlLabel>Start at</ControlLabel>
                 {this.formMessage('start_at')}
@@ -107,7 +107,7 @@ class UserTruckForm extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col md={6}>
+            <Col sm={6} md={6}>
               <FormGroup>
                 <ControlLabel>End at</ControlLabel>
                 {this.formMessage('end_at')}
