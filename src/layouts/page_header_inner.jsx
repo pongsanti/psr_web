@@ -33,7 +33,7 @@ class PageHeaderInner extends Component {
 
   render () {
     const displayName = this.props.user.display_name;
-    const {email} = this.props.user;
+    const {email, admin} = this.props.user;
 
     return (
       <div className='page-header-inner'>
@@ -46,9 +46,11 @@ class PageHeaderInner extends Component {
             <LinkContainer to='/dashboard' exact>
               <NavItem eventKey={1}>Dashboard <span className='selected'></span></NavItem>
             </LinkContainer>
-            <LinkContainer to='/users' className='classic-menu-dropdown'>
-              <NavItem eventKey={2}>Users <span className='selected'></span></NavItem>
-            </LinkContainer>
+            { admin && 
+              <LinkContainer to='/users' className='classic-menu-dropdown'>
+                <NavItem eventKey={2}>Users <span className='selected'></span></NavItem>
+              </LinkContainer>
+            }
           </Nav>
         </div>
         <div className='top-menu'>
