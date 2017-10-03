@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Label, ListGroup, ListGroupItem} from 'react-bootstrap';
 
 class TruckList extends Component {
   constructor (props) {
@@ -48,6 +48,7 @@ class TruckList extends Component {
         onMouseEnter={this.onEnterItem.bind(this, location)}
         onMouseLeave={this.onLeaveItem.bind(this, location)}
         active={location.user_truck_id === this.state.active_user_truck_id}>
+        <h4><Label bsStyle='default'>{location.status}</Label></h4>
         <span>{location.brand} {location.color}</span> <br/>
         <span>Last updated: {location.datetime || 'N/A'}</span>
       </ListGroupItem>);
