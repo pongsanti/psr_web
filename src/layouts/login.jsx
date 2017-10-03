@@ -22,7 +22,7 @@ import '../assets/global/css/plugins.css';
 
 import '../assets/pages/css/login-5.css';
 
-import LOGO_IMG from '../assets/images/logo.png';
+import LOGO_IMG from '../assets/images/login_logo.png';
 import BG01_IMG from '../assets/images/bg1.jpg';
 import BG02_IMG from '../assets/images/bg2.jpg';
 import BG03_IMG from '../assets/images/bg3.jpg';
