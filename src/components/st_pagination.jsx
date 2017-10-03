@@ -26,18 +26,18 @@ class StPagination extends Component {
     const page_size = pager.limit_value
 
     return (
-      <Grid>
-        <Row>
-          <Col md={4}>
-            <Pagination bsSize='small'
-              first last
-              prev={prev}
-              next={next}
-              items={pager.total_pages}
-              activePage={current_page}
-              onSelect={this.onSelect.bind(this)} />
-          </Col>
-          <Col md={4}>
+      <Row>
+        <Col sm={4} md={4}>
+          <Pagination bsSize='small'
+            first last
+            prev={prev}
+            next={next}
+            items={pager.total_pages}
+            activePage={current_page}
+            onSelect={this.onSelect.bind(this)} />
+        </Col>
+        <Col sm={4} md={4}>
+          <div style={{marginTop: '10px'}}>
             Displays: {' '}
             <ButtonGroup>
               <Button active={page_size === 5} onClick={this.pageSizeClick.bind(this, 5)}>5</Button>
@@ -45,12 +45,14 @@ class StPagination extends Component {
               <Button active={page_size === 15} onClick={this.pageSizeClick.bind(this, 15)}>15</Button>
             </ButtonGroup>
             {' '} items
-          </Col>
-          <Col md={4}>
+          </div>
+        </Col>
+        <Col sm={4} md={4}>
+          <div style={{marginTop: '15px'}}>
             Total: {pager.total} items
-          </Col>
-        </Row>
-      </Grid>
+          </div>
+        </Col>
+      </Row>
     )
   }
 }
