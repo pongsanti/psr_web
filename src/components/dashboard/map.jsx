@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import PropTypes from 'prop-types';
 
+import MARKER from '../../assets/images/marker.png';
+
 const Marker = ({ comp }) => <div>{comp}</div>;
 
 class Map extends Component {
@@ -29,23 +31,20 @@ class Map extends Component {
     return locations.map(loc => this.marker(loc));
   }
 
-  iconSize (loc) {
+  markerStyle (loc) {
     const {hoverLocation} = this.props;
     return (hoverLocation 
-      && loc.user_truck_id === this.props.hoverLocation.user_truck_id) ? 'fa-4x' : 'fa-3x';
+      && loc.user_truck_id === this.props.hoverLocation.user_truck_id) ? { width: '30px', height: 'auto' } : {};
   }
 
   marker (location) {
-    const iconClass = 'fa fa-map-marker'
-    const iconSize = this.iconSize(location);
-    const className = `${iconClass} ${iconSize}`
+    const markerStyle = this.markerStyle(location);
     return (
       <Marker
         key={location.user_truck_id}
         lat={location.latitude}
         lng={location.longitude}
-        comp={<i className={className}
-          style={{color: 'red'}} />}
+        comp={<img src={MARKER} style={markerStyle} />}
       />
     )
   }
